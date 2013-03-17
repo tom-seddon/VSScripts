@@ -8,6 +8,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
+using EnvDTE;
 
 namespace Company.VSScripts
 {
@@ -56,17 +57,17 @@ namespace Company.VSScripts
         /// </summary>
         protected override void Initialize()
         {
-            Debug.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
             OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if ( null != mcs )
+            if (null != mcs)
             {
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidVSScriptsCmdSet, (int)PkgCmdIDList.cmdidMyCommand);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID );
-                mcs.AddCommand( menuItem );
+                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
+                mcs.AddCommand(menuItem);
             }
         }
         #endregion
@@ -78,22 +79,50 @@ namespace Company.VSScripts
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            // Show a Message Box to prove we were here
-            IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-            Guid clsid = Guid.Empty;
-            int result;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-                       0,
-                       ref clsid,
-                       "VSScripts",
-                       string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-                       string.Empty,
-                       0,
-                       OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                       OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-                       OLEMSGICON.OLEMSGICON_INFO,
-                       0,        // false
-                       out result));
+            DTE dte = (DTE)GetService(typeof(DTE));
+
+
+            Runner r = new Runner("cmd", "/c mkhc.py");
+
+            r.Run();
+
+            string statusText = string.Format("Exit code: {0}", r.ExitCode);
+
+            if (r.StdErr.Length > 0)
+            {
+                string[] lines = r.StdErr.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (lines.Length > 0)
+                    statusText = string.Format("{0}: {1}", r.ExitCode, lines[lines.Length - 1].Trim());
+            }
+
+            dte.StatusBar.Text = statusText;
+
+            if (r.StdOut.Length > 0)
+            {
+                TextSelection ts = (TextSelection)dte.ActiveDocument.Selection;
+
+                ts.Insert(r.StdOut);
+            }
+
+            //             Document doc=dte.ActiveDocument;
+            // 
+            //             // Show a Message Box to prove we were here
+            //             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
+            //             Guid clsid = Guid.Empty;
+            //             int result;
+            //             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
+            //                        0,
+            //                        ref clsid,
+            //                        "VSScripts",
+            //                        string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
+            //                        string.Empty,
+            //                        0,
+            //                        OLEMSGBUTTON.OLEMSGBUTTON_OK,
+            //                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
+            //                        OLEMSGICON.OLEMSGICON_INFO,
+            //                        0,        // false
+            //                        out result));
         }
 
     }
