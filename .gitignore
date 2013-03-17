@@ -1,0 +1,8 @@
+/VSScripts/bin
+/VSScripts/obj
+/VSScripts/VSScripts_UnitTests/bin
+/VSScripts/VSScripts_UnitTests/obj
+/VSScripts/VSScripts_IntegrationTests/bin
+/VSScripts/VSScripts_IntegrationTests/obj
+*.csproj.user
+*.suo
