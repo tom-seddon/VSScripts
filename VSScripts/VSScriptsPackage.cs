@@ -9,52 +9,55 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
+using System.Collections.Generic;
 
 namespace Company.VSScripts
 {
-    /// <summary>
-    /// This is the class that implements the package exposed by this assembly.
-    ///
-    /// The minimum requirement for a class to be considered a valid package for Visual Studio
-    /// is to implement the IVsPackage interface and register itself with the shell.
-    /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    /// to do it: it derives from the Package class that provides the implementation of the 
-    /// IVsPackage interface and uses the registration attributes defined in the framework to 
-    /// register itself and its components with the shell.
-    /// </summary>
-    // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
-    // a package.
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    // This attribute is used to register the information needed to show this package
-    // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
-    // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidVSScriptsPkgString)]
     public sealed class VSScriptsPackage : Package
     {
-        /// <summary>
-        /// Default constructor of the package.
-        /// Inside this method you can place any initialization code that does not require 
-        /// any Visual Studio service because at this point the package object is created but 
-        /// not sited yet inside Visual Studio environment. The place to do all the other 
-        /// initialization is the Initialize method.
-        /// </summary>
+        private List<Script> _scripts;
+        private int _numCommands;
+
+        private void LoadScriptsList()
+        {
+            _scripts = new List<Script>();
+
+            {
+                Script s = new Script();
+
+                s.Command = @"C:\bin\gnuwin32\bin\unixsort.exe";
+                s.Name = "Sort Lines";
+                s.StdinMode = Script.InputMode.Selection;
+                s.StdoutMode = Script.OutputMode.ReplaceSelection;
+                s.StderrMode = Script.OutputMode.Discard;
+
+                _scripts.Add(s);
+            }
+
+            {
+                Script s = new Script();
+
+                s.Command = @"C:\bin\uuidgen.py";
+                s.Name = "Generate GUID";
+                s.StdinMode = Script.InputMode.None;
+                s.StdoutMode = Script.OutputMode.ReplaceSelection;
+                s.StderrMode = Script.OutputMode.Discard;
+
+                _scripts.Add(s);
+            }
+        }
+
         public VSScriptsPackage()
         {
             Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+
+            _scripts = null;
         }
 
-
-
-        /////////////////////////////////////////////////////////////////////////////
-        // Overridden Package Implementation
-        #region Package Members
-
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
-        /// </summary>
         protected override void Initialize()
         {
             Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
@@ -65,24 +68,90 @@ namespace Company.VSScripts
             if (null != mcs)
             {
                 // Create the command for the menu item.
-                CommandID menuCommandID = new CommandID(GuidList.guidVSScriptsCmdSet, (int)PkgCmdIDList.cmdidMyCommand);
+                CommandID menuCommandID = new CommandID(GuidList.guidVSScriptsCmdSet, (int)PkgCmdIDList.cmdidConfigureScripts);
                 MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
                 mcs.AddCommand(menuItem);
+
+                LoadScriptsList();
+
+                // 50 = an arbitrary value. (Visual Studio is lame.)
+                _numCommands = 50;
+
+                for (int i = 0; i < _numCommands; ++i)
+                {
+                    var cmdID = new CommandID(GuidList.guidVSScriptsCmdSet, PkgCmdIDList.cmdidScript + i);
+                    var cmd = new OleMenuCommand(new EventHandler(HandleScriptMenuItem), cmdID);
+                    cmd.BeforeQueryStatus += new EventHandler(HandleScriptBeforeQueryStatus);
+                    cmd.Visible = true;
+
+                    mcs.AddCommand(cmd);
+
+                    //HandleScriptBeforeQueryStatus(cmd, null);
+                }
             }
         }
-        #endregion
 
-        /// <summary>
-        /// This function is the callback used to execute a command when the a menu item is clicked.
-        /// See the Initialize method to see how the menu item is associated to this function using
-        /// the OleMenuCommandService service and the MenuCommand class.
-        /// </summary>
+        private void InitScriptsList(OleMenuCommandService mcs)
+        {
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        }
+
+        private bool GetMenuItemObjects(object sender, out OleMenuCommand cmd, out Script script)
+        {
+            script = null;
+
+            cmd = sender as OleMenuCommand;
+            if (cmd == null)
+                return false;
+
+            int index = cmd.CommandID.ID - PkgCmdIDList.cmdidScript;
+            if (index < 0 || index >= _numCommands)
+                return false;//?!
+
+            if (index >= _scripts.Count)
+                return false;
+
+            script = _scripts[index];
+            return true;
+        }
+
+        private void HandleScriptMenuItem(object sender, EventArgs e)
+        {
+            OleMenuCommand cmd;
+            Script script;
+            if (!GetMenuItemObjects(sender, out cmd, out script))
+                return;
+
+            IVsStatusbar sb = GetService(typeof(IVsStatusbar)) as IVsStatusbar;
+
+            DTE dte = GetService(typeof(DTE)) as DTE;
+            if (dte == null)
+                sb.SetText("DTE unavailable.");
+            else
+                sb.SetText(script.Command);
+        }
+
+        private void HandleScriptBeforeQueryStatus(object sender, EventArgs e)
+        {
+            OleMenuCommand cmd;
+            Script script;
+            if (!GetMenuItemObjects(sender, out cmd, out script))
+            {
+//                 if (cmd != null)
+//                     cmd.Visible = false;
+
+                return;
+            }
+
+            cmd.Visible = true;
+            cmd.Text = script.Name;
+        }
+
         private void MenuItemCallback(object sender, EventArgs e)
         {
             DTE dte = (DTE)GetService(typeof(DTE));
 
-
-            Runner r = new Runner("cmd", "/c mkhc.py");
+            Runner r = new Runner("cmd", "/c C:\\tom\\VSScripts\\tests\\test.py A B C D");
 
             r.Run();
 

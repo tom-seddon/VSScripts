@@ -42,7 +42,7 @@ namespace VSScripts_IntegrationTests
         {
             UIThreadInvoker.Invoke((ThreadInvoker)delegate()
             {
-                CommandID menuItemCmd = new CommandID(Company.VSScripts.GuidList.guidVSScriptsCmdSet, (int)Company.VSScripts.PkgCmdIDList.cmdidMyCommand);
+                CommandID menuItemCmd = new CommandID(Company.VSScripts.GuidList.guidVSScriptsCmdSet, (int)Company.VSScripts.PkgCmdIDList.cmdidConfigureScripts);
 
                 // Create the DialogBoxListener Thread.
                 string expectedDialogBoxText = string.Format(CultureInfo.CurrentCulture, "{0}\n\nInside {1}.MenuItemCallback()", "VSScripts", "Company.VSScripts.VSScriptsPackage");
