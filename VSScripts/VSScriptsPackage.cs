@@ -247,9 +247,12 @@ namespace Company.VSScripts
             r.Run(stdin);
 
             dte.StatusBar.Text=string.Format("{0} {1} with exit code {2}",script.Name,r.ExitCode==0?"succeeded":"failed",r.ExitCode);
+            dte.UndoContext.Open(script.Name, false);
 
             DoOutput(dte, script.StdoutMode, r.StdOut);
             DoOutput(dte, script.StderrMode, r.StdErr);
+
+            dte.UndoContext.Close();
 
             //             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
         }
