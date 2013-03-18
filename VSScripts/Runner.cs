@@ -89,8 +89,10 @@ namespace Company.VSScripts
         {
             if (e.Data != null)
             {
+                if(b.Length>0)
+                    b.Append(Environment.NewLine);
+
                 b.Append(e.Data);
-                b.Append(Environment.NewLine);
             }
         }
 
