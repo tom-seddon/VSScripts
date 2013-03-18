@@ -228,7 +228,11 @@ namespace Company.VSScripts
                         if (ts == null)
                             return;
 
-                        ts.Insert(output);
+                        // http://msdn.microsoft.com/en-us/library/vstudio/envdte.vsepreplacetextoptions.aspx
+                        vsEPReplaceTextOptions options = 0;
+
+                        foreach (TextRange tr in ts.TextRanges)
+                            tr.StartPoint.ReplaceText(tr.EndPoint, output, (int)options);
                     }
                     break;
             }
