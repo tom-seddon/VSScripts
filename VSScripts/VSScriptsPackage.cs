@@ -54,6 +54,30 @@ namespace Company.VSScripts
 
                 _scripts.Add(s);
             }
+
+            {
+                Script s = new Script();
+
+                s.Command = @"C:\tom\VSScripts\examples\InsertArrow.bat";
+                s.Name = "Insert \"->\"";
+                s.StdinMode = Script.InputMode.None;
+                s.StdoutMode = Script.OutputMode.ReplaceSelection;
+                s.StderrMode = Script.OutputMode.Discard;
+
+                _scripts.Add(s);
+            }
+
+            {
+                Script s = new Script();
+
+                s.Command = @"C:\tom\VSScripts\examples\InsertThisArrow.bat";
+                s.Name = "Insert \"this->\"";
+                s.StdinMode = Script.InputMode.None;
+                s.StdoutMode = Script.OutputMode.ReplaceSelection;
+                s.StderrMode = Script.OutputMode.Discard;
+
+                _scripts.Add(s);
+            }
         }
 
         public VSScriptsPackage()
