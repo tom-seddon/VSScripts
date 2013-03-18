@@ -218,7 +218,7 @@ namespace Company.VSScripts
                         string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
                         if (lines.Length > 0)
-                            dte.StatusBar.Text=lines[lines.Length-1].Trim();
+                            dte.StatusBar.Text = lines[lines.Length - 1].Trim();
                     }
                     break;
 
@@ -246,7 +246,8 @@ namespace Company.VSScripts
 
             r.Run(stdin);
 
-            dte.StatusBar.Text=string.Format("{0} {1} with exit code {2}",script.Name,r.ExitCode==0?"succeeded":"failed",r.ExitCode);
+            dte.StatusBar.Text = string.Format("{0} {1} with exit code {2}", script.Name, r.ExitCode == 0 ? "succeeded" : "failed", r.ExitCode);
+
             dte.UndoContext.Open(script.Name, false);
 
             DoOutput(dte, script.StdoutMode, r.StdOut);
