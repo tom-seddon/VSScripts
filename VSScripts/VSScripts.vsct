@@ -52,10 +52,13 @@
          must be a menu. -->
     <Groups>
 
-      <Group guid="guidVSScriptsCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidVSScriptsCmdSet" id="FixedCmdsGroup" priority="0x0600">
         <Parent guid="guidVSScriptsCmdSet" id="TopLevelMenu"/>
       </Group>
       
+      <Group guid="guidVSScriptsCmdSet" id="ScriptsGroup" priority="0x0601">
+        <Parent guid="guidVSScriptsCmdSet" id="TopLevelMenu"/>
+      </Group>
 
 
     </Groups>
@@ -73,7 +76,7 @@
           If you do not want an image next to your command, remove the Icon node /> -->
 
       <Button guid="guidVSScriptsCmdSet" id="cmdidConfigureScripts" priority="0x0100" type="Button">
-        <Parent guid="guidVSScriptsCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidVSScriptsCmdSet" id="FixedCmdsGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Scripts...</ButtonText>
@@ -81,7 +84,7 @@
       </Button>
 
       <Button guid="guidVSScriptsCmdSet" id="cmdidScript" priority="0x0101" type="Button">
-        <Parent guid="guidVSScriptsCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <CommandFlag>DynamicItemStart</CommandFlag>
         <Strings>
@@ -116,10 +119,11 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidVSScriptsCmdSet" value="{0ff35915-3812-4541-892b-a3ef0e316ddd}">
 
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="FixedCmdsGroup" value="0x1020" />
+      <IDSymbol name="ScriptsGroup" value="0x1021" />
       <IDSymbol name="cmdidConfigureScripts" value="0x0100" />
       <IDSymbol name="cmdidScript" value="0x200"/>
-      <IDSymbol name="TopLevelMenu" value="0x1021"/>
+      <IDSymbol name="TopLevelMenu" value="0x1040"/>
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{8217fb6d-fb58-4366-a1fc-77ac4b5d605b}" >
