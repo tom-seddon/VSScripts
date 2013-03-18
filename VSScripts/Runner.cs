@@ -85,11 +85,17 @@ namespace Company.VSScripts
             return good;
         }
 
-        private void OnDataReceived(DataReceivedEventArgs e, StringBuilder b)
+        private void OnDataReceived(DataReceivedEventArgs e, StringBuilder b, string name)
         {
-            if (e.Data != null)
+            if (e.Data == null)
             {
-                if(b.Length>0)
+                //Debug.WriteLine(name + " OnDataReceived: got: null");
+            }
+            else
+            {
+                //Debug.WriteLine(name + " OnDataReceived: got: \"" + e.Data + "\"");
+
+                if (b.Length > 0)
                     b.Append(Environment.NewLine);
 
                 b.Append(e.Data);
@@ -98,12 +104,12 @@ namespace Company.VSScripts
 
         private void OnErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            OnDataReceived(e, _stderrBuilder);
+            OnDataReceived(e, _stderrBuilder, "STDERR");
         }
 
         private void OnOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            OnDataReceived(e, _stdoutBuilder);
+            OnDataReceived(e, _stdoutBuilder, "STDOUT");
         }
     }
 }
