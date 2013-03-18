@@ -44,7 +44,7 @@ namespace Company.VSScripts
             _process.OutputDataReceived += this.OnOutputDataReceived;
         }
 
-        public bool Run()
+        public bool Run(string stdin)
         {
             bool good = false;
 
@@ -54,6 +54,13 @@ namespace Company.VSScripts
 
                 _process.BeginOutputReadLine();
                 _process.BeginErrorReadLine();
+
+                if (stdin != null)
+                {
+                    _process.StandardInput.Write(stdin);
+
+                    _process.StandardInput.Close();//^Z
+                }
 
                 if (_process.WaitForExit(2500))
                     good = true;

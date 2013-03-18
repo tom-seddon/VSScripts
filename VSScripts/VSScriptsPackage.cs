@@ -74,7 +74,7 @@ namespace Company.VSScripts
             {
                 // Create the command for the menu item.
                 CommandID menuCommandID = new CommandID(GuidList.guidVSScriptsCmdSet, (int)PkgCmdIDList.cmdidConfigureScripts);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID);
+                MenuCommand menuItem = new MenuCommand(HandleScriptsCmd, menuCommandID);
                 mcs.AddCommand(menuItem);
 
                 LoadScriptsList();
@@ -133,7 +133,7 @@ namespace Company.VSScripts
             if (dte == null)
                 sb.SetText("DTE unavailable.");
             else
-                sb.SetText(script.Command);
+                RunScript(dte, script);
         }
 
         private void HandleScriptBeforeQueryStatus(object sender, EventArgs e)
@@ -142,8 +142,8 @@ namespace Company.VSScripts
             Script script;
             if (!GetMenuItemObjects(sender, out cmd, out script))
             {
-//                 if (cmd != null)
-//                     cmd.Visible = false;
+                if (cmd != null)
+                    cmd.Visible = false;
 
                 return;
             }
@@ -152,51 +152,82 @@ namespace Company.VSScripts
             cmd.Text = script.Name;
         }
 
-        private void MenuItemCallback(object sender, EventArgs e)
+        private string GetStdin(DTE dte, Script.InputMode mode)
         {
-            DTE dte = (DTE)GetService(typeof(DTE));
-
-            Runner r = new Runner("cmd", "/c C:\\tom\\VSScripts\\tests\\test.py A B C D");
-
-            r.Run();
-
-            string statusText = string.Format("Exit code: {0}", r.ExitCode);
-
-            if (r.StdErr.Length > 0)
+            TextDocument td = dte.ActiveDocument.Object("TextDocument") as TextDocument;
+            if (td != null)
             {
-                string[] lines = r.StdErr.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                switch (mode)
+                {
+                    case Script.InputMode.Selection:
+                        {
+                            if (td.Selection.Text.Length > 0)
+                                return td.Selection.Text;
+                        }
+                        break;
 
-                if (lines.Length > 0)
-                    statusText = string.Format("{0}: {1}", r.ExitCode, lines[lines.Length - 1].Trim());
+                    case Script.InputMode.CurrentLine:
+                        {
+                            EditPoint a = td.CreateEditPoint(td.Selection.ActivePoint);
+                            a.StartOfLine();
+
+                            EditPoint b = td.CreateEditPoint(a);
+                            a.EndOfLine();
+
+                            return a.GetText(b);
+                        }
+                }
             }
 
-            dte.StatusBar.Text = statusText;
+            return null;
+        }
 
-            if (r.StdOut.Length > 0)
+        private void DoOutput(DTE dte, Script.OutputMode mode, string output)
+        {
+            switch (mode)
             {
-                TextSelection ts = (TextSelection)dte.ActiveDocument.Selection;
+                case Script.OutputMode.Discard:
+                    break;
 
-                ts.Insert(r.StdOut);
+                case Script.OutputMode.StatusBar:
+                    {
+                        string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (lines.Length > 0)
+                            dte.StatusBar.Text=lines[lines.Length-1].Trim();
+                    }
+                    break;
+
+                case Script.OutputMode.ReplaceSelection:
+                    {
+                        TextSelection ts = dte.ActiveDocument.Selection as TextSelection;
+                        if (ts == null)
+                            return;
+
+                        ts.Insert(output);
+                    }
+                    break;
             }
+        }
 
-            //             Document doc=dte.ActiveDocument;
-            // 
-            //             // Show a Message Box to prove we were here
+        private void RunScript(DTE dte, Script script)
+        {
+            string stdin = GetStdin(dte, script.StdinMode);
+
+            Runner r = new Runner("cmd", "/c " + script.Command);
+
+            r.Run(stdin);
+
+            dte.StatusBar.Text=string.Format("{0} {1} with exit code {2}",script.Name,r.ExitCode==0?"succeeded":"failed",r.ExitCode);
+
+            DoOutput(dte, script.StdoutMode, r.StdOut);
+            DoOutput(dte, script.StderrMode, r.StdErr);
+
             //             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
-            //             Guid clsid = Guid.Empty;
-            //             int result;
-            //             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(uiShell.ShowMessageBox(
-            //                        0,
-            //                        ref clsid,
-            //                        "VSScripts",
-            //                        string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.ToString()),
-            //                        string.Empty,
-            //                        0,
-            //                        OLEMSGBUTTON.OLEMSGBUTTON_OK,
-            //                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
-            //                        OLEMSGICON.OLEMSGICON_INFO,
-            //                        0,        // false
-            //                        out result));
+        }
+
+        private void HandleScriptsCmd(object sender, EventArgs e)
+        {
         }
 
     }
