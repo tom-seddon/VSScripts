@@ -13,10 +13,15 @@ using System.Collections.Generic;
 
 namespace Company.VSScripts
 {
+    // (Regarding UICONTEXT_NoSolution - if a SLN is supplied on the command
+    // line, the IDE appears to go through the NoSolution state before it
+    // loads the SLN, so the package is autoloaded.)
+
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidVSScriptsPkgString)]
+    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]//UICONTEXT_NoSolution
     public sealed class VSScriptsPackage : Package
     {
         private List<Script> _scripts;
