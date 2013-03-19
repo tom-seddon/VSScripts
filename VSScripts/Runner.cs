@@ -56,11 +56,9 @@ namespace Company.VSScripts
                 _process.BeginErrorReadLine();
 
                 if (stdin != null)
-                {
                     _process.StandardInput.Write(stdin);
 
-                    _process.StandardInput.Close();//^Z
-                }
+                _process.StandardInput.Close();//^Z
 
                 if (_process.WaitForExit(2500))
                     good = true;
