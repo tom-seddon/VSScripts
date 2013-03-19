@@ -6,3 +6,4 @@
 /VSScripts/VSScripts_IntegrationTests/obj
 *.csproj.user
 *.suo
+*.pyc

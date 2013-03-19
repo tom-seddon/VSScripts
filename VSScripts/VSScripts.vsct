@@ -38,6 +38,7 @@
       <Menu guid="guidVSScriptsCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
         <Parent guid="guidSHLMainMenu"
                 id="IDG_VS_MM_TOOLSADDINS"/>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Scripts</ButtonText>
           <CommandName>Scripts</CommandName>
@@ -83,15 +84,456 @@
         </Strings>
       </Button>
 
-      <Button guid="guidVSScriptsCmdSet" id="cmdidScript" priority="0x0101" type="Button">
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript0" priority="0x0101" type="Button">
         <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <CommandFlag>DynamicItemStart</CommandFlag>
+        <Icon guid="guidDigits" id="digit0" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>cmdidScript Placeholder</ButtonText>
+          <ButtonText>Script 0</ButtonText>
         </Strings>
       </Button>
-
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript1" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit1" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 1</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript2" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit2" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 2</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript3" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit3" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 3</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript4" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit4" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 4</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript5" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit5" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 5</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript6" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit6" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 6</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript7" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit7" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 7</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript8" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit8" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 8</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript9" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit9" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 9</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript10" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit10" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 10</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript11" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit11" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 11</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript12" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit12" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 12</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript13" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit13" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 13</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript14" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit14" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 14</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript15" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit15" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 15</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript16" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit16" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 16</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript17" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit17" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 17</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript18" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit18" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 18</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript19" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit19" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 19</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript20" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit20" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 20</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript21" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit21" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 21</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript22" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit22" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 22</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript23" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit23" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 23</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript24" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit24" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 24</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript25" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit25" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 25</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript26" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit26" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 26</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript27" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit27" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 27</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript28" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit28" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 28</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript29" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit29" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 29</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript30" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit30" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 30</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript31" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit31" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 31</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript32" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit32" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 32</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript33" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit33" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 33</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript34" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit34" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 34</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript35" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit35" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 35</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript36" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit36" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 36</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript37" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit37" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 37</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript38" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit38" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 38</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript39" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit39" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 39</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript40" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit40" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 40</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript41" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit41" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 41</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript42" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit42" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 42</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript43" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit43" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 43</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript44" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit44" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 44</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript45" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit45" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 45</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript46" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit46" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 46</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript47" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit47" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 47</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript48" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit48" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 48</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVSScriptsCmdSet" id="cmdIdScript49" priority="0x0101" type="Button">
+        <Parent guid="guidVSScriptsCmdSet" id="ScriptsGroup" />
+        <Icon guid="guidDigits" id="digit49" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Script 49</ButtonText>
+        </Strings>
+      </Button>
 
     </Buttons>
    
@@ -103,7 +545,8 @@
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="guidImages" href="Resources\Images.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
-      
+      <Bitmap guid="guidDigits" href="Resources\digits.png" usedList="digit0,digit1,digit2,digit3,digit4,digit5,digit6,digit7,digit8,digit9,digit10,digit11,digit12,digit13,digit14,digit15,digit16,digit17,digit18,digit19,digit20,digit21,digit22,digit23,digit24,digit25,digit26,digit27,digit28,digit29,digit30,digit31,digit32,digit33,digit34,digit35,digit36,digit37,digit38,digit39,digit40,digit41,digit42,digit43,digit44,digit45,digit46,digit47,digit48,digit49"/>
+
     </Bitmaps>
  
   </Commands>
@@ -122,8 +565,59 @@
       <IDSymbol name="FixedCmdsGroup" value="0x1020" />
       <IDSymbol name="ScriptsGroup" value="0x1021" />
       <IDSymbol name="cmdidConfigureScripts" value="0x0100" />
-      <IDSymbol name="cmdidScript" value="0x200"/>
       <IDSymbol name="TopLevelMenu" value="0x1040"/>
+
+      <IDSymbol name="cmdIdScript0" value="0x200"/>
+      <IDSymbol name="cmdIdScript1" value="0x201"/>
+      <IDSymbol name="cmdIdScript2" value="0x202"/>
+      <IDSymbol name="cmdIdScript3" value="0x203"/>
+      <IDSymbol name="cmdIdScript4" value="0x204"/>
+      <IDSymbol name="cmdIdScript5" value="0x205"/>
+      <IDSymbol name="cmdIdScript6" value="0x206"/>
+      <IDSymbol name="cmdIdScript7" value="0x207"/>
+      <IDSymbol name="cmdIdScript8" value="0x208"/>
+      <IDSymbol name="cmdIdScript9" value="0x209"/>
+      <IDSymbol name="cmdIdScript10" value="0x20A"/>
+      <IDSymbol name="cmdIdScript11" value="0x20B"/>
+      <IDSymbol name="cmdIdScript12" value="0x20C"/>
+      <IDSymbol name="cmdIdScript13" value="0x20D"/>
+      <IDSymbol name="cmdIdScript14" value="0x20E"/>
+      <IDSymbol name="cmdIdScript15" value="0x20F"/>
+      <IDSymbol name="cmdIdScript16" value="0x210"/>
+      <IDSymbol name="cmdIdScript17" value="0x211"/>
+      <IDSymbol name="cmdIdScript18" value="0x212"/>
+      <IDSymbol name="cmdIdScript19" value="0x213"/>
+      <IDSymbol name="cmdIdScript20" value="0x214"/>
+      <IDSymbol name="cmdIdScript21" value="0x215"/>
+      <IDSymbol name="cmdIdScript22" value="0x216"/>
+      <IDSymbol name="cmdIdScript23" value="0x217"/>
+      <IDSymbol name="cmdIdScript24" value="0x218"/>
+      <IDSymbol name="cmdIdScript25" value="0x219"/>
+      <IDSymbol name="cmdIdScript26" value="0x21A"/>
+      <IDSymbol name="cmdIdScript27" value="0x21B"/>
+      <IDSymbol name="cmdIdScript28" value="0x21C"/>
+      <IDSymbol name="cmdIdScript29" value="0x21D"/>
+      <IDSymbol name="cmdIdScript30" value="0x21E"/>
+      <IDSymbol name="cmdIdScript31" value="0x21F"/>
+      <IDSymbol name="cmdIdScript32" value="0x220"/>
+      <IDSymbol name="cmdIdScript33" value="0x221"/>
+      <IDSymbol name="cmdIdScript34" value="0x222"/>
+      <IDSymbol name="cmdIdScript35" value="0x223"/>
+      <IDSymbol name="cmdIdScript36" value="0x224"/>
+      <IDSymbol name="cmdIdScript37" value="0x225"/>
+      <IDSymbol name="cmdIdScript38" value="0x226"/>
+      <IDSymbol name="cmdIdScript39" value="0x227"/>
+      <IDSymbol name="cmdIdScript40" value="0x228"/>
+      <IDSymbol name="cmdIdScript41" value="0x229"/>
+      <IDSymbol name="cmdIdScript42" value="0x22A"/>
+      <IDSymbol name="cmdIdScript43" value="0x22B"/>
+      <IDSymbol name="cmdIdScript44" value="0x22C"/>
+      <IDSymbol name="cmdIdScript45" value="0x22D"/>
+      <IDSymbol name="cmdIdScript46" value="0x22E"/>
+      <IDSymbol name="cmdIdScript47" value="0x22F"/>
+      <IDSymbol name="cmdIdScript48" value="0x230"/>
+      <IDSymbol name="cmdIdScript49" value="0x231"/>
+
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{8217fb6d-fb58-4366-a1fc-77ac4b5d605b}" >
@@ -133,6 +627,59 @@
       <IDSymbol name="bmpPicX" value="4" />
       <IDSymbol name="bmpPicArrows" value="5" />
       <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidDigits" value="{0A811C08-2416-4CD9-88AE-F3C0E91C2ED3}">
+      <IDSymbol name="digit0" value="1"/>
+      <IDSymbol name="digit1" value="2"/>
+      <IDSymbol name="digit2" value="3"/>
+      <IDSymbol name="digit3" value="4"/>
+      <IDSymbol name="digit4" value="5"/>
+      <IDSymbol name="digit5" value="6"/>
+      <IDSymbol name="digit6" value="7"/>
+      <IDSymbol name="digit7" value="8"/>
+      <IDSymbol name="digit8" value="9"/>
+      <IDSymbol name="digit9" value="10"/>
+      <IDSymbol name="digit10" value="11"/>
+      <IDSymbol name="digit11" value="12"/>
+      <IDSymbol name="digit12" value="13"/>
+      <IDSymbol name="digit13" value="14"/>
+      <IDSymbol name="digit14" value="15"/>
+      <IDSymbol name="digit15" value="16"/>
+      <IDSymbol name="digit16" value="17"/>
+      <IDSymbol name="digit17" value="18"/>
+      <IDSymbol name="digit18" value="19"/>
+      <IDSymbol name="digit19" value="20"/>
+      <IDSymbol name="digit20" value="21"/>
+      <IDSymbol name="digit21" value="22"/>
+      <IDSymbol name="digit22" value="23"/>
+      <IDSymbol name="digit23" value="24"/>
+      <IDSymbol name="digit24" value="25"/>
+      <IDSymbol name="digit25" value="26"/>
+      <IDSymbol name="digit26" value="27"/>
+      <IDSymbol name="digit27" value="28"/>
+      <IDSymbol name="digit28" value="29"/>
+      <IDSymbol name="digit29" value="30"/>
+      <IDSymbol name="digit30" value="31"/>
+      <IDSymbol name="digit31" value="32"/>
+      <IDSymbol name="digit32" value="33"/>
+      <IDSymbol name="digit33" value="34"/>
+      <IDSymbol name="digit34" value="35"/>
+      <IDSymbol name="digit35" value="36"/>
+      <IDSymbol name="digit36" value="37"/>
+      <IDSymbol name="digit37" value="38"/>
+      <IDSymbol name="digit38" value="39"/>
+      <IDSymbol name="digit39" value="40"/>
+      <IDSymbol name="digit40" value="41"/>
+      <IDSymbol name="digit41" value="42"/>
+      <IDSymbol name="digit42" value="43"/>
+      <IDSymbol name="digit43" value="44"/>
+      <IDSymbol name="digit44" value="45"/>
+      <IDSymbol name="digit45" value="46"/>
+      <IDSymbol name="digit46" value="47"/>
+      <IDSymbol name="digit47" value="48"/>
+      <IDSymbol name="digit48" value="49"/>
+      <IDSymbol name="digit49" value="50"/>
     </GuidSymbol>
   </Symbols>
 

@@ -25,7 +25,6 @@ namespace Company.VSScripts
     public sealed class VSScriptsPackage : Package
     {
         private List<Script> _scripts;
-        private int _numCommands;
 
         private void LoadScriptsList()
         {
@@ -103,12 +102,9 @@ namespace Company.VSScripts
 
                 LoadScriptsList();
 
-                // 50 = an arbitrary value. (Visual Studio is lame.)
-                _numCommands = 50;
-
-                for (int i = 0; i < _numCommands; ++i)
+                for (int i = 0; i < PkgCmdIDList.numScripts; ++i)
                 {
-                    var cmdID = new CommandID(GuidList.guidVSScriptsCmdSet, PkgCmdIDList.cmdidScript + i);
+                    var cmdID = new CommandID(GuidList.guidVSScriptsCmdSet, PkgCmdIDList.cmdidScript0 + i);
                     var cmd = new OleMenuCommand(new EventHandler(HandleScriptMenuItem), cmdID);
                     cmd.BeforeQueryStatus += new EventHandler(HandleScriptBeforeQueryStatus);
                     cmd.Visible = true;
@@ -133,8 +129,8 @@ namespace Company.VSScripts
             if (cmd == null)
                 return false;
 
-            int index = cmd.CommandID.ID - PkgCmdIDList.cmdidScript;
-            if (index < 0 || index >= _numCommands)
+            int index = cmd.CommandID.ID - PkgCmdIDList.cmdidScript0;
+            if (index < 0 || index >= PkgCmdIDList.numScripts)
                 return false;//?!
 
             if (index >= _scripts.Count)
