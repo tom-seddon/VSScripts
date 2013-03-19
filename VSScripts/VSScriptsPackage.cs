@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Shell;
 using EnvDTE;
 using System.Collections.Generic;
 using EnvDTE80;
+using System.IO;
 
 namespace Company.VSScripts
 {
@@ -129,10 +130,10 @@ namespace Company.VSScripts
             }
         }
 
-        private void InitScriptsList(OleMenuCommandService mcs)
-        {
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        }
+//         private void InitScriptsList(OleMenuCommandService mcs)
+//         {
+//             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+//         }
 
         private bool GetMenuItemObjects(object sender, out OleMenuCommand cmd, out Script script)
         {
@@ -273,6 +274,12 @@ namespace Company.VSScripts
             string stdin = GetStdin(dte, script.StdinMode);
 
             Runner r = new Runner("cmd", "/c " + script.Command);
+
+            r.AddEnv("FullPath", dte.ActiveDocument.FullName);
+            r.AddEnv("Filename", Misc.GetPathFileNameWithoutExtension(dte.ActiveDocument.FullName));
+            r.AddEnv("Extension", Misc.GetPathExtension(dte.ActiveDocument.FullName));
+            r.AddEnv("Directory", Misc.GetPathDirectoryName(dte.ActiveDocument.FullName));
+            r.AddEnv("RootDir", Misc.GetPathRoot(dte.ActiveDocument.FullName));
 
             r.Run(stdin);
 

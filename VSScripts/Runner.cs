@@ -44,6 +44,12 @@ namespace Company.VSScripts
             _process.OutputDataReceived += this.OnOutputDataReceived;
         }
 
+        public void AddEnv(string key, string value)
+        {
+            if (key != null && value != null)
+                _process.StartInfo.EnvironmentVariables.Add(key, value);
+        }
+
         public bool Run(string stdin)
         {
             bool good = false;

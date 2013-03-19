@@ -130,6 +130,7 @@
       <DependentUpon>EditScriptDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Guids.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
