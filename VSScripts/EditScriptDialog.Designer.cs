@@ -47,9 +47,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Command";
+            this.label1.Text = "Command line";
             // 
             // _commandText
             // 
@@ -85,6 +85,7 @@
             // 
             // _stdoutCombo
             // 
+            this._stdoutCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._stdoutCombo.FormattingEnabled = true;
             this._stdoutCombo.Location = new System.Drawing.Point(155, 119);
             this._stdoutCombo.Name = "_stdoutCombo";
@@ -93,6 +94,7 @@
             // 
             // _stderrCombo
             // 
+            this._stderrCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._stderrCombo.FormattingEnabled = true;
             this._stderrCombo.Location = new System.Drawing.Point(155, 146);
             this._stderrCombo.Name = "_stderrCombo";
@@ -110,6 +112,7 @@
             // 
             // _stdinCombo
             // 
+            this._stdinCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._stdinCombo.FormattingEnabled = true;
             this._stdinCombo.Location = new System.Drawing.Point(155, 184);
             this._stdinCombo.Name = "_stdinCombo";
@@ -135,6 +138,7 @@
             this._cancelButton.TabIndex = 12;
             this._cancelButton.Text = "Cancel";
             this._cancelButton.UseVisualStyleBackColor = true;
+            this._cancelButton.Click += new System.EventHandler(this._cancelButton_Click);
             // 
             // _okButton
             // 

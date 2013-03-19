@@ -12,6 +12,7 @@ using EnvDTE;
 using System.Collections.Generic;
 using EnvDTE80;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Company.VSScripts
 {
@@ -86,7 +87,7 @@ namespace Company.VSScripts
                 s.Command = @"SET";
                 s.Name = "Show environment";
                 s.StdinMode = Script.InputMode.None;
-                s.StdoutMode = Script.OutputMode.OutputWindow;
+                s.StdoutMode = Script.OutputMode.ReplaceOutputWindow;
                 s.StderrMode = Script.OutputMode.Discard;
 
                 _scripts.Add(s);
@@ -124,16 +125,9 @@ namespace Company.VSScripts
                     cmd.Visible = true;
 
                     mcs.AddCommand(cmd);
-
-                    //HandleScriptBeforeQueryStatus(cmd, null);
                 }
             }
         }
-
-//         private void InitScriptsList(OleMenuCommandService mcs)
-//         {
-//             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-//         }
 
         private bool GetMenuItemObjects(object sender, out OleMenuCommand cmd, out Script script)
         {
@@ -185,7 +179,7 @@ namespace Company.VSScripts
             }
 
             cmd.Visible = true;
-            cmd.Text = script.Name;
+            cmd.Text = script.Caption;
         }
 
         private string GetStdin(DTE2 dte, Script.InputMode mode)
@@ -229,6 +223,22 @@ namespace Company.VSScripts
             return dte.ToolWindows.OutputWindow.OutputWindowPanes.Add(name);
         }
 
+        private void SendToStatusBar(DTE2 dte, string output, bool first)
+        {
+            string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (lines.Length > 0)
+            {
+                int index;
+                if (first)
+                    index = 0;
+                else
+                    index = lines.Length - 1;
+
+                dte.StatusBar.Text = lines[index].Trim();
+            }
+        }
+
         private void DoOutput(DTE2 dte, Script.OutputMode mode, string output)
         {
             switch (mode)
@@ -236,7 +246,16 @@ namespace Company.VSScripts
                 case Script.OutputMode.Discard:
                     break;
 
-                case Script.OutputMode.OutputWindow:
+                case Script.OutputMode.ReplaceOutputWindow:
+                    {
+                        OutputWindowPane pane = FindOrCreateOutputWindowPane(dte, "VSScripts");
+
+                        pane.Clear();
+
+                        goto case Script.OutputMode.AppendToOutputWindow;
+                    }
+
+                case Script.OutputMode.AppendToOutputWindow:
                     {
                         OutputWindowPane pane = FindOrCreateOutputWindowPane(dte, "VSScripts");
 
@@ -244,13 +263,12 @@ namespace Company.VSScripts
                     }
                     break;
 
-                case Script.OutputMode.StatusBar:
-                    {
-                        string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                case Script.OutputMode.FirstLineToStatusBar:
+                    SendToStatusBar(dte, output, true);
+                    break;
 
-                        if (lines.Length > 0)
-                            dte.StatusBar.Text = lines[lines.Length - 1].Trim();
-                    }
+                case Script.OutputMode.LastLineToStatusBar:
+                    SendToStatusBar(dte, output, false);
                     break;
 
                 case Script.OutputMode.ReplaceSelection:
@@ -297,7 +315,14 @@ namespace Company.VSScripts
 
         private void HandleScriptsCmd(object sender, EventArgs e)
         {
-        }
+            var d = new ConfigureScriptsDialog(_scripts);
 
+            d.ShowDialog();
+
+            if (d.DialogResult == DialogResult.OK)
+            {
+                _scripts = d.Scripts;
+            }
+        }
     }
 }

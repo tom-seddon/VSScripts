@@ -48,6 +48,8 @@
             this._scriptsList.Size = new System.Drawing.Size(156, 180);
             this._scriptsList.TabIndex = 0;
             this._scriptsList.UseCompatibleStateImageBehavior = false;
+            this._scriptsList.View = System.Windows.Forms.View.List;
+            this._scriptsList.DoubleClick += new System.EventHandler(this._scriptsList_DoubleClick);
             // 
             // label1
             // 
@@ -67,6 +69,7 @@
             this._addButton.TabIndex = 2;
             this._addButton.Text = "&Add...";
             this._addButton.UseVisualStyleBackColor = true;
+            this._addButton.Click += new System.EventHandler(this._addButton_Click);
             // 
             // _editButton
             // 
@@ -77,6 +80,7 @@
             this._editButton.TabIndex = 3;
             this._editButton.Text = "&Edit...";
             this._editButton.UseVisualStyleBackColor = true;
+            this._editButton.Click += new System.EventHandler(this._editButton_Click);
             // 
             // _removeButton
             // 
@@ -87,6 +91,7 @@
             this._removeButton.TabIndex = 4;
             this._removeButton.Text = "&Remove";
             this._removeButton.UseVisualStyleBackColor = true;
+            this._removeButton.Click += new System.EventHandler(this._removeButton_Click);
             // 
             // _moveDownButton
             // 
@@ -118,6 +123,7 @@
             this._okButton.TabIndex = 7;
             this._okButton.Text = "OK";
             this._okButton.UseVisualStyleBackColor = true;
+            this._okButton.Click += new System.EventHandler(this._okButton_Click);
             // 
             // ConfigureScriptsDialog
             // 

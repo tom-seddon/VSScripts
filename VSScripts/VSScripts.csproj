@@ -142,7 +142,6 @@
     <Compile Include="VSScriptsPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PkgCmdID.cs" />
-    <Compile Include="xml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfigureScriptsDialog.resx">

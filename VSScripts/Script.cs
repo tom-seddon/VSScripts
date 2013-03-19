@@ -11,9 +11,11 @@ namespace Company.VSScripts
         public enum OutputMode
         {
             Discard,
-            StatusBar,
+            FirstLineToStatusBar,
+            LastLineToStatusBar,
             ReplaceSelection,
-            OutputWindow,
+            ReplaceOutputWindow,
+            AppendToOutputWindow,
         }
 
         public enum InputMode
@@ -23,17 +25,74 @@ namespace Company.VSScripts
             Selection,
         }
 
-        public InputMode StdinMode;
-        public OutputMode StdoutMode;
-        public OutputMode StderrMode;
-        public string Name;
-        public string Command;
+        struct ScriptData
+        {
+            public InputMode stdinMode;
+            public OutputMode stderrMode;
+            public OutputMode stdoutMode;
+            public string name;
+            public string command;
+        }
+
+        public InputMode StdinMode
+        {
+            get { return _data.stdinMode; }
+            set { _data.stdinMode = value; }
+        }
+
+        public OutputMode StderrMode
+        {
+            get { return _data.stderrMode; }
+            set { _data.stderrMode = value; }
+        }
+
+        public OutputMode StdoutMode
+        {
+            get { return _data.stdoutMode; }
+            set { _data.stdoutMode = value; }
+        }
+
+        public string Name
+        {
+            get { return _data.name; }
+            set { _data.name = value; }
+        }
+
+        public string Command
+        {
+            get { return _data.command; }
+            set { _data.command = value; }
+        }
+
+        public string Caption
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Name))
+                    return Name;
+                else
+                    return Command;
+            }
+        }
+
+        private ScriptData _data;
 
         public Script()
         {
-            StdinMode = InputMode.None;
-            StdoutMode = OutputMode.ReplaceSelection;
-            StderrMode = OutputMode.StatusBar;
+            _data.stdinMode = InputMode.None;
+            _data.stderrMode = OutputMode.LastLineToStatusBar;
+            _data.stdoutMode = OutputMode.ReplaceSelection;
+            _data.name = null;
+            _data.command = null;
+        }
+
+        public Script Clone()
+        {
+            var s = new Script();
+
+            s._data = _data;
+
+            return s;
         }
     }
 }
