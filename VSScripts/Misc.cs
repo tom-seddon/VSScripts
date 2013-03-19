@@ -68,6 +68,9 @@ namespace Company.VSScripts
 
         public static T LoadXml<T>(string fileName) where T : class
         {
+            if (fileName == null)
+                return null;
+
             using (XmlReader reader = XmlReader.Create(fileName))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -80,9 +83,11 @@ namespace Company.VSScripts
 
         public static T LoadXmlOrCreateDefault<T>(string fileName) where T : class,new()
         {
+            T result = null;
+
             try
             {
-                return LoadXml<T>(fileName);
+                result = LoadXml<T>(fileName);
             }
             catch (InvalidOperationException)
             {
@@ -91,7 +96,10 @@ namespace Company.VSScripts
             {
             }
 
-            return new T();
+            if (result == null)
+                result = new T();
+
+            return result;
         }
 
         //-///////////////////////////////////////////////////////////////////////
@@ -99,6 +107,9 @@ namespace Company.VSScripts
 
         public static void SaveXml<T>(string fileName, T data)
         {
+            if (fileName == null)
+                return;
+
             XmlWriterSettings settings = new XmlWriterSettings();
 
             settings.Encoding = defaultXmlEncoding;

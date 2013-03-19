@@ -40,6 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this._cancelButton = new System.Windows.Forms.Button();
             this._okButton = new System.Windows.Forms.Button();
+            this._findFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,7 +56,7 @@
             // 
             this._commandText.Location = new System.Drawing.Point(15, 25);
             this._commandText.Name = "_commandText";
-            this._commandText.Size = new System.Drawing.Size(309, 20);
+            this._commandText.Size = new System.Drawing.Size(278, 20);
             this._commandText.TabIndex = 3;
             // 
             // label2
@@ -151,11 +152,22 @@
             this._okButton.UseVisualStyleBackColor = true;
             this._okButton.Click += new System.EventHandler(this._okButton_Click);
             // 
+            // _findFileButton
+            // 
+            this._findFileButton.Location = new System.Drawing.Point(299, 25);
+            this._findFileButton.Name = "_findFileButton";
+            this._findFileButton.Size = new System.Drawing.Size(25, 23);
+            this._findFileButton.TabIndex = 14;
+            this._findFileButton.Text = "...";
+            this._findFileButton.UseVisualStyleBackColor = true;
+            this._findFileButton.Click += new System.EventHandler(this._findFileButton_Click);
+            // 
             // EditScriptDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(336, 295);
+            this.Controls.Add(this._findFileButton);
             this.Controls.Add(this._okButton);
             this.Controls.Add(this._cancelButton);
             this.Controls.Add(this.label5);
@@ -191,5 +203,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Button _okButton;
+        private System.Windows.Forms.Button _findFileButton;
     }
 }

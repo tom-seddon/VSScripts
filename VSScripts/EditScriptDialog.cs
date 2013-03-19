@@ -77,5 +77,22 @@ namespace Company.VSScripts
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void _findFileButton_Click(object sender, EventArgs e)
+        {
+            var d = new OpenFileDialog();
+
+            d.Multiselect = false;
+            d.RestoreDirectory = true;
+
+            if (d.ShowDialog() == DialogResult.OK)
+            {
+                string quote = "";
+                if (d.FileName.IndexOf(' ') >= 0)
+                    quote = "\"";
+
+                _commandText.SelectedText = quote + d.FileName + quote;
+            }
+        }
     }
 }

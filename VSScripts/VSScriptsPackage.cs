@@ -29,70 +29,89 @@ namespace Company.VSScripts
     {
         private List<Script> _scripts;
 
+        private void SaveScriptsList()
+        {
+            Misc.SaveXml(GetScriptsListFileName(), _scripts);
+        }
+
         private void LoadScriptsList()
         {
-            _scripts = new List<Script>();
+            _scripts = Misc.LoadXmlOrCreateDefault<List<Script>>(GetScriptsListFileName());
 
-            {
-                Script s = new Script();
-
-                s.Command = @"C:\bin\gnuwin32\bin\unixsort.exe";
-                s.Name = "Sort Lines";
-                s.StdinMode = Script.InputMode.Selection;
-                s.StdoutMode = Script.OutputMode.ReplaceSelection;
-                s.StderrMode = Script.OutputMode.Discard;
-
-                _scripts.Add(s);
-            }
-
-            {
-                Script s = new Script();
-
-                s.Command = @"C:\bin\uuidgen.py";
-                s.Name = "Generate GUID";
-                s.StdinMode = Script.InputMode.None;
-                s.StdoutMode = Script.OutputMode.ReplaceSelection;
-                s.StderrMode = Script.OutputMode.Discard;
-
-                _scripts.Add(s);
-            }
-
-            {
-                Script s = new Script();
-
-                s.Command = @"C:\tom\VSScripts\examples\InsertArrow.bat";
-                s.Name = "Insert \"->\"";
-                s.StdinMode = Script.InputMode.None;
-                s.StdoutMode = Script.OutputMode.ReplaceSelection;
-                s.StderrMode = Script.OutputMode.Discard;
-
-                _scripts.Add(s);
-            }
-
-            {
-                Script s = new Script();
-
-                s.Command = @"C:\tom\VSScripts\examples\InsertThisArrow.bat";
-                s.Name = "Insert \"this->\"";
-                s.StdinMode = Script.InputMode.None;
-                s.StdoutMode = Script.OutputMode.ReplaceSelection;
-                s.StderrMode = Script.OutputMode.Discard;
-
-                _scripts.Add(s);
-            }
-
-            {
-                Script s = new Script();
-
-                s.Command = @"SET";
-                s.Name = "Show environment";
-                s.StdinMode = Script.InputMode.None;
-                s.StdoutMode = Script.OutputMode.ReplaceOutputWindow;
-                s.StderrMode = Script.OutputMode.Discard;
-
-                _scripts.Add(s);
-            }
+            // Ensure there are always as many entries as there are possible
+            // scripts - this isn't strictly necessary but it simplifies some of
+            // the maintenance code.
+            while (_scripts.Count < PkgCmdIDList.numScripts)
+                _scripts.Add(null);
         }
+
+        private string GetScriptsListFileName()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VSScripts.xml");
+        }
+
+        //             _scripts = new List<Script>();
+        // 
+        //             {
+        //                 Script s = new Script();
+        // 
+        //                 s.Command = @"C:\bin\gnuwin32\bin\unixsort.exe";
+        //                 s.Name = "Sort Lines";
+        //                 s.StdinMode = Script.InputMode.Selection;
+        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
+        //                 s.StderrMode = Script.OutputMode.Discard;
+        // 
+        //                 _scripts.Add(s);
+        //             }
+        // 
+        //             {
+        //                 Script s = new Script();
+        // 
+        //                 s.Command = @"C:\bin\uuidgen.py";
+        //                 s.Name = "Generate GUID";
+        //                 s.StdinMode = Script.InputMode.None;
+        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
+        //                 s.StderrMode = Script.OutputMode.Discard;
+        // 
+        //                 _scripts.Add(s);
+        //             }
+        // 
+        //             {
+        //                 Script s = new Script();
+        // 
+        //                 s.Command = @"C:\tom\VSScripts\examples\InsertArrow.bat";
+        //                 s.Name = "Insert \"->\"";
+        //                 s.StdinMode = Script.InputMode.None;
+        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
+        //                 s.StderrMode = Script.OutputMode.Discard;
+        // 
+        //                 _scripts.Add(s);
+        //             }
+        // 
+        //             {
+        //                 Script s = new Script();
+        // 
+        //                 s.Command = @"C:\tom\VSScripts\examples\InsertThisArrow.bat";
+        //                 s.Name = "Insert \"this->\"";
+        //                 s.StdinMode = Script.InputMode.None;
+        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
+        //                 s.StderrMode = Script.OutputMode.Discard;
+        // 
+        //                 _scripts.Add(s);
+        //             }
+        // 
+        //             {
+        //                 Script s = new Script();
+        // 
+        //                 s.Command = @"SET";
+        //                 s.Name = "Show environment";
+        //                 s.StdinMode = Script.InputMode.None;
+        //                 s.StdoutMode = Script.OutputMode.ReplaceOutputWindow;
+        //                 s.StderrMode = Script.OutputMode.Discard;
+        // 
+        //                 _scripts.Add(s);
+        //             }
+        //         }
 
         public VSScriptsPackage()
         {
@@ -145,6 +164,10 @@ namespace Company.VSScripts
                 return false;
 
             script = _scripts[index];
+
+            if (script == null)
+                return false;
+
             return true;
         }
 
@@ -322,6 +345,8 @@ namespace Company.VSScripts
             if (d.DialogResult == DialogResult.OK)
             {
                 _scripts = d.Scripts;
+
+                SaveScriptsList();
             }
         }
     }

@@ -25,9 +25,12 @@ namespace Company.VSScripts
 
             for (int i = 0; i < _scripts.Count; ++i)
             {
-                ListViewItem lvi = _scriptsList.Items.Add(string.Format("{0} - {1}", i, _scripts[i].Caption));
+                if (_scripts[i] != null)
+                {
+                    ListViewItem lvi = _scriptsList.Items.Add(string.Format("{0} - {1}", i, _scripts[i].Caption));
 
-                lvi.Tag = i;
+                    lvi.Tag = i;
+                }
             }
         }
 
@@ -47,22 +50,32 @@ namespace Company.VSScripts
 
         private void _addButton_Click(object sender, EventArgs e)
         {
-            if (_scripts.Count >= PkgCmdIDList.numScripts)
+            int index = -1;
+
+            for (int i = 0; i < _scripts.Count; ++i)
+            {
+                if (_scripts[i] == null)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index < 0)
             {
                 MessageBox.Show(string.Format("This build has a limit of {0} scripts.\n\nRecompile the package if this isn't enough...", PkgCmdIDList.numScripts), "Script limit");
+                return;
             }
-            else
+
+            var d = new EditScriptDialog(new Script());
+
+            d.ShowDialog();
+
+            if (d.DialogResult == DialogResult.OK)
             {
-                var d = new EditScriptDialog(new Script());
+                _scripts[index] = d.Script;
 
-                d.ShowDialog();
-
-                if (d.DialogResult == DialogResult.OK)
-                {
-                    _scripts.Add(d.Script);
-
-                    RefreshScriptsList();
-                }
+                RefreshScriptsList();
             }
         }
 
@@ -101,7 +114,7 @@ namespace Company.VSScripts
 
                 if (MessageBox.Show("Remove this script from the menu?", "Remove?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    _scripts.RemoveAt((int)lvi.Tag);
+                    _scripts[(int)lvi.Tag] = null;
 
                     RefreshScriptsList();
                 }
