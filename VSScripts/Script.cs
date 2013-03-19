@@ -13,6 +13,7 @@ namespace Company.VSScripts
             Discard,
             StatusBar,
             ReplaceSelection,
+            OutputWindow,
         }
 
         public enum InputMode

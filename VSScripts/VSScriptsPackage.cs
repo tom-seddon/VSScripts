@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
 using System.Collections.Generic;
+using EnvDTE80;
 
 namespace Company.VSScripts
 {
@@ -73,6 +74,18 @@ namespace Company.VSScripts
                 s.Name = "Insert \"this->\"";
                 s.StdinMode = Script.InputMode.None;
                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
+                s.StderrMode = Script.OutputMode.Discard;
+
+                _scripts.Add(s);
+            }
+
+            {
+                Script s = new Script();
+
+                s.Command = @"SET";
+                s.Name = "Show environment";
+                s.StdinMode = Script.InputMode.None;
+                s.StdoutMode = Script.OutputMode.OutputWindow;
                 s.StderrMode = Script.OutputMode.Discard;
 
                 _scripts.Add(s);
@@ -149,9 +162,11 @@ namespace Company.VSScripts
 
             IVsStatusbar sb = GetService(typeof(IVsStatusbar)) as IVsStatusbar;
 
-            DTE dte = GetService(typeof(DTE)) as DTE;
+            DTE2 dte = GetService(typeof(DTE)) as DTE2;
             if (dte == null)
-                sb.SetText("DTE unavailable.");
+                sb.SetText("Internal error - DTE unavailable.");
+            else if (dte.ActiveDocument == null)
+                sb.SetText("There is no active document.");
             else
                 RunScript(dte, script);
         }
@@ -172,7 +187,7 @@ namespace Company.VSScripts
             cmd.Text = script.Name;
         }
 
-        private string GetStdin(DTE dte, Script.InputMode mode)
+        private string GetStdin(DTE2 dte, Script.InputMode mode)
         {
             TextDocument td = dte.ActiveDocument.Object("TextDocument") as TextDocument;
             if (td != null)
@@ -202,11 +217,30 @@ namespace Company.VSScripts
             return null;
         }
 
-        private void DoOutput(DTE dte, Script.OutputMode mode, string output)
+        private OutputWindowPane FindOrCreateOutputWindowPane(DTE2 dte, string name)
+        {
+            foreach (OutputWindowPane pane in dte.ToolWindows.OutputWindow.OutputWindowPanes)
+            {
+                if (pane.Name == name)
+                    return pane;
+            }
+
+            return dte.ToolWindows.OutputWindow.OutputWindowPanes.Add(name);
+        }
+
+        private void DoOutput(DTE2 dte, Script.OutputMode mode, string output)
         {
             switch (mode)
             {
                 case Script.OutputMode.Discard:
+                    break;
+
+                case Script.OutputMode.OutputWindow:
+                    {
+                        OutputWindowPane pane = FindOrCreateOutputWindowPane(dte, "VSScripts");
+
+                        pane.OutputString(output);
+                    }
                     break;
 
                 case Script.OutputMode.StatusBar:
@@ -234,7 +268,7 @@ namespace Company.VSScripts
             }
         }
 
-        private void RunScript(DTE dte, Script script)
+        private void RunScript(DTE2 dte, Script script)
         {
             string stdin = GetStdin(dte, script.StdinMode);
 
