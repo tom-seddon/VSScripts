@@ -328,10 +328,15 @@ namespace Company.VSScripts
 
             dte.UndoContext.Open(script.Name, false);
 
-            DoOutput(dte, script.StdoutMode, r.StdOut);
-            DoOutput(dte, script.StderrMode, r.StdErr);
-
-            dte.UndoContext.Close();
+            try
+            {
+                DoOutput(dte, script.StdoutMode, r.StdOut);
+                DoOutput(dte, script.StderrMode, r.StdErr);
+            }
+            finally
+            {
+                dte.UndoContext.Close();
+            }
 
             //             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
         }
