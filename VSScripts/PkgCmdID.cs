@@ -8,7 +8,7 @@ namespace Company.VSScripts
     {
         public const int cmdidConfigureScripts = 0x100;
         public const int cmdidScript0 = 0x200;
-        public const int numScripts = 50;
+        public const int numScripts = 100;
 
     };
 }

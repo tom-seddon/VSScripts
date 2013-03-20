@@ -1,4 +1,4 @@
-import png,sys
+import png,vsscripts
 
 digits=[
     [0x00,0x00,0x04,0x0A,0x11,0x11,0x11,0x11,0x11,0x0A,0x04,0x00,0x00,],# 48 (0x30) '0'
@@ -19,18 +19,16 @@ def draw_digit(rows,bx,by,d):
             if digits[d][y]&(1<<x):
                rows[by+y][bx+x]=(0,0,0,255) 
 
-n=int(sys.argv[1])
-
 # create bitmap
 rows=[]
 for y in range(16):
     rows.append([])
-    for x in range(n*16):
+    for x in range(vsscripts.max_num_scripts()*16):
         rows[-1].append((255,255,255,0))
 
 # draw digits
-for i in range(int(sys.argv[1])):
-    draw_digit(rows,i*16+1,2,i/10)
+for i in range(vsscripts.max_num_scripts()):
+    draw_digit(rows,i*16+2,2,i/10)
     draw_digit(rows,i*16+9,2,i%10)
 
 # dilate
