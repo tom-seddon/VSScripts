@@ -18,8 +18,3 @@ Should be more like:
 - Clear first
 - Pane name
 
-* Set command indexes
-
-* Package GUID
-
-569C04D1-EC9E-40EE-91D5-B3729107520C
