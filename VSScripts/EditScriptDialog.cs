@@ -18,9 +18,11 @@ namespace Company.VSScripts
         {
             get { return _script; }
         }
-        public EditScriptDialog(Script script)
+        public EditScriptDialog(Script script, string reason, int index)
         {
             InitializeComponent();
+
+            this.Text = string.Format("{0} Script {1:D2}", reason, index);
 
             //
             foreach (ComboBox combo in new ComboBox[] { _stderrCombo, _stdoutCombo })

@@ -67,7 +67,7 @@ namespace Company.VSScripts
                 return;
             }
 
-            var d = new EditScriptDialog(new Script());
+            var d = new EditScriptDialog(new Script(), "Add", index);
 
             d.ShowDialog();
 
@@ -86,7 +86,7 @@ namespace Company.VSScripts
                 ListViewItem lvi = _scriptsList.SelectedItems[0];
                 var index = (int)lvi.Tag;
 
-                var d = new EditScriptDialog(_scripts[index]);
+                var d = new EditScriptDialog(_scripts[index], "Edit", index);
 
                 d.Text = string.Format("Edit Script {0}", (int)index);
 
