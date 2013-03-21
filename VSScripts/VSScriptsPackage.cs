@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using EnvDTE80;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace Company.VSScripts
 {
@@ -20,6 +21,7 @@ namespace Company.VSScripts
     // line, the IDE appears to go through the NoSolution state before it
     // loads the SLN, so the package is autoloaded.)
 
+    [ProvideLoadKey("Standard", "0.1", "VSScripts", "Tom Seddon", 104)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
