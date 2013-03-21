@@ -19,6 +19,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Editor;
 using System.ComponentModel.Composition;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Company.VSScripts
 {
@@ -255,15 +256,15 @@ namespace Company.VSScripts
 
         private void SendToStatusBar(DTE2 dte, string output, bool first)
         {
-            string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> lines = new List<string>(from x in output.Split(new string[] { Environment.NewLine }, StringSplitOptions.None) where !string.IsNullOrWhiteSpace(x) select x.Trim());
 
-            if (lines.Length > 0)
+            if (lines.Count > 0)
             {
                 int index;
                 if (first)
                     index = 0;
                 else
-                    index = lines.Length - 1;
+                    index = lines.Count - 1;
 
                 dte.StatusBar.Text = lines[index].Trim();
             }
