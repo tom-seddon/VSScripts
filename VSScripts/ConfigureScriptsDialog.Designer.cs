@@ -33,8 +33,6 @@
             this._addButton = new System.Windows.Forms.Button();
             this._editButton = new System.Windows.Forms.Button();
             this._removeButton = new System.Windows.Forms.Button();
-            this._moveDownButton = new System.Windows.Forms.Button();
-            this._moveUpButton = new System.Windows.Forms.Button();
             this._okButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -93,26 +91,6 @@
             this._removeButton.UseVisualStyleBackColor = true;
             this._removeButton.Click += new System.EventHandler(this._removeButton_Click);
             // 
-            // _moveDownButton
-            // 
-            this._moveDownButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._moveDownButton.Location = new System.Drawing.Point(174, 182);
-            this._moveDownButton.Name = "_moveDownButton";
-            this._moveDownButton.Size = new System.Drawing.Size(75, 23);
-            this._moveDownButton.TabIndex = 5;
-            this._moveDownButton.Text = "Move &Down";
-            this._moveDownButton.UseVisualStyleBackColor = true;
-            // 
-            // _moveUpButton
-            // 
-            this._moveUpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._moveUpButton.Location = new System.Drawing.Point(174, 153);
-            this._moveUpButton.Name = "_moveUpButton";
-            this._moveUpButton.Size = new System.Drawing.Size(75, 23);
-            this._moveUpButton.TabIndex = 6;
-            this._moveUpButton.Text = "Move &Up";
-            this._moveUpButton.UseVisualStyleBackColor = true;
-            // 
             // _okButton
             // 
             this._okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -131,8 +109,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(261, 275);
             this.Controls.Add(this._okButton);
-            this.Controls.Add(this._moveUpButton);
-            this.Controls.Add(this._moveDownButton);
             this.Controls.Add(this._removeButton);
             this.Controls.Add(this._editButton);
             this.Controls.Add(this._addButton);
@@ -154,8 +130,6 @@
         private System.Windows.Forms.Button _addButton;
         private System.Windows.Forms.Button _editButton;
         private System.Windows.Forms.Button _removeButton;
-        private System.Windows.Forms.Button _moveDownButton;
-        private System.Windows.Forms.Button _moveUpButton;
         private System.Windows.Forms.Button _okButton;
     }
 }
