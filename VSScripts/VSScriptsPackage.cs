@@ -14,6 +14,11 @@ using EnvDTE80;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.Editor;
+using System.ComponentModel.Composition;
+using System.Collections.ObjectModel;
 
 namespace Company.VSScripts
 {
@@ -264,6 +269,129 @@ namespace Company.VSScripts
             }
         }
 
+        private string ToString(EditPoint e)
+        {
+            return string.Format("AbsoluteCharOffset={0} AtEndOfDocument={1} AtEndOfLine={2} AtStartOfDocument={3} AtStartOfLine={4} DisplayColumn={5} Line={6} LineCharOffset={7} LineLength={8}",
+                e.AbsoluteCharOffset, e.AtEndOfDocument, e.AtEndOfLine, e.AtStartOfDocument, e.AtStartOfLine, e.DisplayColumn, e.Line, e.LineCharOffset, e.LineLength);
+        }
+
+        private string ToString(TextPoint e)
+        {
+            return string.Format("AbsoluteCharOffset={0} AtEndOfDocument={1} AtEndOfLine={2} AtStartOfDocument={3} AtStartOfLine={4} DisplayColumn={5} Line={6} LineCharOffset={7} LineLength={8}",
+                e.AbsoluteCharOffset, e.AtEndOfDocument, e.AtEndOfLine, e.AtStartOfDocument, e.AtStartOfLine, e.DisplayColumn, e.Line, e.LineCharOffset, e.LineLength);
+        }
+
+        private IWpfTextView GetWPFTextView(IVsTextView vsTextView)
+        {
+            var userData = vsTextView as IVsUserData;
+            if (userData == null)
+                return null;
+
+            Guid guid = DefGuidList.guidIWpfTextViewHost;
+            object holder;
+            userData.GetData(ref guid, out holder);
+
+            if (holder == null)
+                return null;
+
+            var host = holder as IWpfTextViewHost;
+            if (host == null)
+                return null;
+
+            return host.TextView;
+        }
+
+        private static void O(OutputWindowPane o, string fmt, params object[] args)
+        {
+            string str = string.Format(fmt, args);
+
+            o.OutputString(str);
+            Trace.Write(str);
+        }
+
+        private void ReplaceBoxSelection(DTE2 dte, string text)
+        {
+            int result;
+
+            IVsTextManager textManager = GetService(typeof(SVsTextManager)) as IVsTextManager;
+            if (textManager == null)
+                return;
+
+            IVsTextView textView;
+            result = textManager.GetActiveView(1, null, out textView);
+            if (result != VSConstants.S_OK)
+                return;
+
+            IWpfTextView wpfTextView = GetWPFTextView(textView);
+            if (wpfTextView == null)
+                return;
+
+            ITextBuffer buffer = wpfTextView.TextBuffer;
+
+            ITextEdit edit = wpfTextView.TextBuffer.CreateEdit();
+
+            var owp = FindOrCreateOutputWindowPane(dte, "VSScriptsDebug");
+            owp.Clear();
+
+            ITextSelection selection = wpfTextView.Selection;
+
+            NormalizedSnapshotSpanCollection spans = selection.SelectedSpans;
+            ReadOnlyCollection<VirtualSnapshotSpan> vspans = selection.VirtualSelectedSpans;
+
+            O(owp, "Spans:\n");
+
+            for (int i = 0; i < spans.Count; ++i)
+            {
+                SnapshotSpan span = spans[i];
+
+                O(owp, "    [{0}]: {1}\n", i, span);//Start={1} End={2} Length={3} IsEmpty={4}\n",i,span.Start,
+            }
+
+            O(owp, "Virtual Spans:\n");
+
+            for (int i = 0; i < vspans.Count; ++i)
+            {
+                VirtualSnapshotSpan vspan = vspans[i];
+                SnapshotSpan span = vspan.SnapshotSpan;
+
+                O(owp, "    [{0}]: {1} (IsInVirtualSpace={2}) (Start VirtualSpaces={3} End VirtualSpaces={4})\n", i, vspan, vspan.IsInVirtualSpace, vspan.Start.VirtualSpaces, vspan.End.VirtualSpaces);
+            }
+
+            bool good = true;
+
+            //             foreach (SnapshotSpan span in spans)
+            //             {
+            //                 if (!edit.Replace(span, text))
+            //                     good = false;
+            //             }
+
+            foreach (VirtualSnapshotSpan vspan in vspans)
+            {
+                if (vspan.Start.VirtualSpaces>0)
+                {
+                    // *sigh* - not sure why Visual Studio can't just do this
+                    // for you. Then maybe it could respect the tabs/spaces
+                    // option.
+                    string spaces = new string(' ',vspan.Start.VirtualSpaces);
+
+                    if (!edit.Insert(vspan.Start.Position, spaces))
+                        good = false;
+
+                    // Having inserted a few spaces, that's enough for the
+                    // virtual span's snapshot span to be valid as something to
+                    // replace.
+                }
+
+                if (!edit.Replace(vspan.SnapshotSpan, text))
+                    good = false;
+            }
+
+            if (good)
+                edit.Apply();
+            else
+                edit.Cancel();
+        }
+
         private void DoOutput(DTE2 dte, Script.OutputMode mode, string output)
         {
             switch (mode)
@@ -299,14 +427,15 @@ namespace Company.VSScripts
                 case Script.OutputMode.ReplaceSelection:
                     {
                         TextSelection ts = dte.ActiveDocument.Selection as TextSelection;
-                        if (ts == null)
-                            return;
 
-                        // http://msdn.microsoft.com/en-us/library/vstudio/envdte.vsepreplacetextoptions.aspx
-                        vsEPReplaceTextOptions options = 0;
-
-                        foreach (TextRange tr in ts.TextRanges)
-                            tr.StartPoint.ReplaceText(tr.EndPoint, output, (int)options);
+                        if (ts.Mode == vsSelectionMode.vsSelectionModeStream)
+                        {
+                            ts.DestructiveInsert(output);
+                        }
+                        else
+                        {
+                            ReplaceBoxSelection(dte, output);
+                        }
                     }
                     break;
             }
