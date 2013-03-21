@@ -368,12 +368,12 @@ namespace Company.VSScripts
 
             foreach (VirtualSnapshotSpan vspan in vspans)
             {
-                if (vspan.Start.VirtualSpaces>0)
+                if (vspan.Start.VirtualSpaces > 0)
                 {
                     // *sigh* - not sure why Visual Studio can't just do this
                     // for you. Then maybe it could respect the tabs/spaces
                     // option.
-                    string spaces = new string(' ',vspan.Start.VirtualSpaces);
+                    string spaces = new string(' ', vspan.Start.VirtualSpaces);
 
                     if (!edit.Insert(vspan.Start.Position, spaces))
                         good = false;
