@@ -1,0 +1,25 @@
+* Extend output options
+
+Should be more like:
+
+** Discard
+** Replace Selection
+
+- Edit.CompleteWord afterwards?
+- Box behaviour
+
+** Status Bar
+
+- First line
+- Last line
+
+** Output Window
+
+- Clear first
+- Pane name
+
+* Set command indexes
+
+* Package GUID
+
+569C04D1-EC9E-40EE-91D5-B3729107520C
