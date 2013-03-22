@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="174b2dd0-5bde-4d1b-9e44-027f43e07c79" Version="1.0" Language="en-US" Publisher="Tom Seddon" />
+    <Identity Id="174b2dd0-5bde-4d1b-9e44-027f43e07c79" Version="0.1" Language="en-US" Publisher="Tom Seddon" />
     <DisplayName>VSScripts</DisplayName>
     <Description xml:space="preserve">Simple macros for Visual Studio.</Description>
   </Metadata>

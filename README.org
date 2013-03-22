@@ -17,11 +17,18 @@ much. Often, you won't need anything fancier than a simple batch file.
 
 * installation
 
+You'll need VS2012. Update 1 might be required.
+
+Double click the =vsix= file and follow the instructions.
+
 * quick walkthrough
+
+(github doesn't display images, so this might not read very well -
+though it should still be possible to follow.)
 
 Once you have the VSScripts extension installed, run Visual Studio.
 
-Look: SCRIPTS.
+Note new SCRIPTS menu.
 
 [[file:images/SCRIPTSMenu.png]]
 
@@ -68,10 +75,10 @@ Result! (Even if the compiler doesn't agree.)
 
 Nearly done. Let's assign a keyboard shortcut.
 
-Look in the menu - note the =00= icon. You can also see a =0= next to
-the script's name, if you visit the scripts dialog. And it also said
-=Script 00= when adding it. This is actually trying to tell you
-something - that this is script 00.
+Look in the =SCRIPTS= menu - note the =00= icon. You can also see a
+=0= next to the script's name, if you visit the scripts dialog. And it
+also said =Script 00= when adding it. This is trying to tell you
+something: that this is script 00.
 
 (Don't forget this, because the options dialog is modal.)
 
@@ -141,7 +148,8 @@ variables:
 
 * bugs/problems
 
-- Box selections don't work amazingly.
+- Box selection behaviour is far from perfect. It works well enough
+  for my purposes though and I'm sick of poking at it for now.
 
 - Needs more stdin/stdout/stderr options.
 
