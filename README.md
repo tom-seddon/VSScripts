@@ -11,7 +11,7 @@ You can write your macros in any language you like, pretty
 much. Often, you won't need anything fancier than a simple batch file.
 
 (If you've ever used the User Scripts facility of Xcode 3.x, or emacs's
-=shell-command-on-region=, this should be familiar.)
+`shell-command-on-region`, this should be familiar.)
 
 installation
 ============
@@ -33,30 +33,35 @@ It might not look like much.
 
 ![images/SCRIPTSMenuEmpty.png](images/SCRIPTSMenuEmpty.png)
 
-Click =Scripts...= to reveal the Scripts dialog.
+Click `Scripts...` to reveal the Scripts dialog.
 
 ![images/ScriptsDialog.png](images/ScriptsDialog.png)
 
-Click =Add...= to add a new script.
+Click `Add...` to add a new script.
 
 ![images/AddScript00DialogEmpty.png](images/AddScript00DialogEmpty.png)
 
 You get to specify details straight away - let's use one of the
 examples supplied by setting things up as follows:
 
-- =Command Line= :: use the =...= button to find the
-                    =examples\InsertArrow.bat= file from the
-                    distribution.
-- =Name= :: =Insert ->=
-- =stdout= :: leave this at the default of =ReplaceSelection=
-- =stderr= :: leave this at the default of =LastLineToStatusBar=
-- =stdin= :: leave this at the default of =None=
+<dl>
+<dt>`Command Line`</dt>
+<dd>use the `...` button to find the `examples\InsertArrow.bat` file from the distribution.</dd>
+<dt>`Name`</dt>
+<dd>`Insert ->`</dd>
+<dt>`stdout`</dt>
+<dd>leave this at the default of `ReplaceSelection`</dd>
+<dt>`stderr`</dt>
+<dd>leave this at the default of `LastLineToStatusBar`</dd>
+<dt>`stdin`</dt>
+<dd>leave this at the default of `None`</dd>
+</dl>
 
-You're done! Click =OK=. Your script was added.
+You're done! Click `OK`. Your script was added.
 
 ![images/ScriptsDialogWithScript00.png](images/ScriptsDialogWithScript00.png)
 
-Click =OK= to get back to the text editor, and put the caret somewhere you can see it.
+Click `OK` to get back to the text editor, and put the caret somewhere you can see it.
 
 ![images/SourceFileBeforeInsertingArrow.png](images/SourceFileBeforeInsertingArrow.png)
 
@@ -72,20 +77,20 @@ Result! (Even if the compiler doesn't agree.)
 
 Nearly done. Let's assign a keyboard shortcut.
 
-Look in the =SCRIPTS= menu - note the =00= icon. You can also see a
-=0= next to the script's name, if you visit the scripts dialog. And it
-also said =Script 00= when adding it. This is trying to tell you
+Look in the `SCRIPTS` menu - note the `00` icon. You can also see a
+`0` next to the script's name, if you visit the scripts dialog. And it
+also said `Script 00` when adding it. This is trying to tell you
 something: that this is script 00.
 
 (Don't forget this, because the options dialog is modal.)
 
-Go to the options dialog, keyboard section, and enter =script00= in
-the =Show commands containing:= box. There'll probably be one command
-matching it: =Scripts.Script00=.
+Go to the options dialog, keyboard section, and enter `script00` in
+the `Show commands containing:` box. There'll probably be one command
+matching it: `Scripts.Script00`.
 
 ![images/ToolsOptionsKeyboardWithScript00Selected.png](images/ToolsOptionsKeyboardWithScript00Selected.png)
 
-=Scripts.Script00= is the one that runs Script 00 (hopefully this is
+`Scripts.Script00` is the one that runs Script 00 (hopefully this is
 not confusing).
 
 Assign it a keyboard shortcut. You're also best off setting it to be
@@ -100,34 +105,39 @@ Command line
 ------------
 
 This can be anything that you can type at the command prompt, pretty
-much. The command line is executed via =CMD /C=, so you can use
-builtin commands (=SET=, =VER=, =ECHO=, etc.), or invoke batch files,
+much. The command line is executed via `CMD /C`, so you can use
+builtin commands (`SET`, `VER`, `ECHO`, etc.), or invoke batch files,
 or run scripts with file type assocations (e.g., python scripts), and
 so on.
 
-** =stdout= and =stderr= settings
+** `stdout` and `stderr` settings
 
-- =Discard= :: the output is discarded.
-- =ReplaceSelection= :: the output replaces the current
-     selection. (The last newline is discarded, if there is one, so if
-     you really want the result to end with a newline then you must
-     print an extra one. This is a .NET limitation.)
-- =FirstLineToStatusBar= :: the first non-empty line of the output is
-     displayed on the status bar.
-- =LastLineToStatusBar= :: the last non-empty line of the output is
-     displayed on the status bar.
-- =ReplaceOutputWindow= :: the output is sent to an output window pane
-     called =VSScripts=, replacing the previous contents.
-- =AppendToOutputWindow= :: the output is appended to an output window
-     pane called =VSScripts=.
+<dl>
+<dt>`Discard`</dt>
+<dd>the output is discarded.</dd>
+<dt>`ReplaceSelection`</dt>
+<dd>the output replaces the current selection. (The last newline is discarded, if there is one, so if you really want the result to end with a newline then you must print an extra one. This is a .NET limitation.)</dd>
+<dt>`FirstLineToStatusBar`</dt>
+<dd>the first non-empty line of the output is displayed on the status bar.</dd>
+<dt>`LastLineToStatusBar`</dt>
+<dd>the last non-empty line of the output is displayed on the status bar.</dd>
+<dt>`ReplaceOutputWindow`</dt>
+<dd>the output is sent to an output window pane called `VSScripts`, replacing the previous contents.</dd>
+<dt>`AppendToOutputWindow`</dt>
+<dd>the output is appended to an output window pane called `VSScripts`.</dd>
+</dl>
 
-=stdin= settings
+`stdin` settings
 ----------------
 
-- =None= :: no input is supplied.
-- =CurrentLine= :: the contents of the current line, excluding line
-                   ending, is sent.
-- =Selection= :: the contents of the selection is sent.
+<dl>
+<dt>`None`</dt>
+<dd>no input is supplied.</dd>
+<dt>`CurrentLine`</dt>
+<dd>the contents of the current line, excluding line ending, is sent.</dd>
+<dt>`Selection`</dt>
+<dd>the contents of the selection is sent.</dd>
+</dl>
 
 * making your own scripts
 
@@ -137,14 +147,18 @@ and stderr options as appropriate for its behaviour.
 There are a few pieces of information supplied via environment
 variables:
 
-- =FullPath= :: full path of file being edited.
-- =Filename= :: name of file being edited, no path or extension.
-- =Extension= :: extension of name of file being edited, with a
-                 leading =.=.
-- =Directory= :: directory of file being edited, excluding drive
-                 letter.
-- =RootDir= :: drive letter of file being edited, with trailing
-               separator.
+<dl>
+<dt>`FullPath`</dt>
+<dd>full path of file being edited.</dd>
+<dt>`Filename`</dt>
+<dd>name of file being edited, no path or extension.</dd>
+<dt>`Extension`</dt>
+<dd>extension of name of file being edited, with a leading `.`.</dd>
+<dt>`Directory`</dt>
+<dd>directory of file being edited, excluding drive letter.</dd>
+<dt>`RootDir`</dt>
+<dd>drive letter of file being edited, with trailing separator.</dd>
+</dl>
 
 bugs/problems
 =============
