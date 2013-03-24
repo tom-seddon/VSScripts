@@ -1,7 +1,5 @@
-#+OPTIONS: toc:nil num:nil author:nil email:nil creator:nil timestamp:nil ^:nil
-#+TITLE: scripts
-
-* scripts
+VSScripts
+=========
 
 The VSScripts extension package adds a simple macro facility to Visual
 Studio 2012 for inserting and transforming text. It runs a command
@@ -15,34 +13,33 @@ much. Often, you won't need anything fancier than a simple batch file.
 (If you've ever used the User Scripts facility of Xcode 3.x, or emacs's
 =shell-command-on-region=, this should be familiar.)
 
-* installation
+installation
+============
 
 You'll need VS2012. Update 1 might be required.
 
 Double click the =vsix= file and follow the instructions.
 
-* quick walkthrough
-
-(github doesn't display images, so this might not read very well -
-though it should still be possible to follow.)
+quick walkthrough
+=================
 
 Once you have the VSScripts extension installed, run Visual Studio.
 
 Note new SCRIPTS menu.
 
-[[file:images/SCRIPTSMenu.png]]
+![images/SCRIPTSMenu.png](images/SCRIPTSMenu.png)
 
 It might not look like much.
 
-[[file:images/SCRIPTSMenuEmpty.png]]
+![images/SCRIPTSMenuEmpty.png](images/SCRIPTSMenuEmpty.png)
 
 Click =Scripts...= to reveal the Scripts dialog.
 
-[[file:images/ScriptsDialog.png]]
+![images/ScriptsDialog.png](images/ScriptsDialog.png)
 
 Click =Add...= to add a new script.
 
-[[file:images/AddScript00DialogEmpty.png]]
+![images/AddScript00DialogEmpty.png](images/AddScript00DialogEmpty.png)
 
 You get to specify details straight away - let's use one of the
 examples supplied by setting things up as follows:
@@ -57,19 +54,19 @@ examples supplied by setting things up as follows:
 
 You're done! Click =OK=. Your script was added.
 
-[[file:images/ScriptsDialogWithScript00.png]]
+![images/ScriptsDialogWithScript00.png](images/ScriptsDialogWithScript00.png)
 
 Click =OK= to get back to the text editor, and put the caret somewhere you can see it.
 
-[[file:images/SourceFileBeforeInsertingArrow.png]]
+![images/SourceFileBeforeInsertingArrow.png](images/SourceFileBeforeInsertingArrow.png)
 
 Visit the scripts menu - note your script is there!
 
-[[file:images/SCRIPTSMenuWithInsertArrow.png]]
+![images/SCRIPTSMenuWithInsertArrow.png](images/SCRIPTSMenuWithInsertArrow.png)
 
 Select it!
 
-[[file:images/SourceFileAfterInsertingArrow.png]]
+![images/SourceFileAfterInsertingArrow.png](images/SourceFileAfterInsertingArrow.png)
 
 Result! (Even if the compiler doesn't agree.)
 
@@ -86,7 +83,7 @@ Go to the options dialog, keyboard section, and enter =script00= in
 the =Show commands containing:= box. There'll probably be one command
 matching it: =Scripts.Script00=.
 
-[[file:images/ToolsOptionsKeyboardWithScript00Selected.png]]
+![images/ToolsOptionsKeyboardWithScript00Selected.png](images/ToolsOptionsKeyboardWithScript00Selected.png)
 
 =Scripts.Script00= is the one that runs Script 00 (hopefully this is
 not confusing).
@@ -94,11 +91,13 @@ not confusing).
 Assign it a keyboard shortcut. You're also best off setting it to be
 usable in the text editor only, but it's up to you.
 
-[[file:images/ToolsOptionsKeyboardAssigningKeyboardShortcut.png]]
+![images/ToolsOptionsKeyboardAssigningKeyboardShortcut.png](images/ToolsOptionsKeyboardAssigningKeyboardShortcut.png)
 
-* script settings summary
+script settings summary
+=======================
 
-** Command line
+Command line
+------------
 
 This can be anything that you can type at the command prompt, pretty
 much. The command line is executed via =CMD /C=, so you can use
@@ -122,7 +121,8 @@ so on.
 - =AppendToOutputWindow= :: the output is appended to an output window
      pane called =VSScripts=.
 
-** =stdin= settings
+=stdin= settings
+----------------
 
 - =None= :: no input is supplied.
 - =CurrentLine= :: the contents of the current line, excluding line
@@ -146,7 +146,8 @@ variables:
 - =RootDir= :: drive letter of file being edited, with trailing
                separator.
 
-* bugs/problems
+bugs/problems
+=============
 
 - Box selection behaviour is far from perfect. It works well enough
   for my purposes though and I'm sick of poking at it for now.
