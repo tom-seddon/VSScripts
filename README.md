@@ -27,7 +27,7 @@ Once you have the VSScripts extension installed, run Visual Studio.
 
 Note new SCRIPTS menu.
 
-![images/SCRIPTSMenu.png](images/SCRIPTSMenu.png)
+![images/SCRIPTSMenu.png](images/SCRIPTSMenu.png?raw=true)
 
 It might not look like much.
 
