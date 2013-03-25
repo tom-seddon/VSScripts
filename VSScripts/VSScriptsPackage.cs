@@ -364,17 +364,23 @@ namespace Company.VSScripts
             }
         }
 
+        private void FillEnvironment(DTE2 dte, Runner r)
+        {
+            r.AddEnv("FullPath", dte.ActiveDocument.FullName);
+            r.AddEnv("Filename", Misc.GetPathFileNameWithoutExtension(dte.ActiveDocument.FullName));
+            r.AddEnv("Extension", Misc.GetPathExtension(dte.ActiveDocument.FullName));
+            r.AddEnv("Directory", Misc.GetPathDirectoryName(dte.ActiveDocument.FullName));
+            r.AddEnv("RootDir", Misc.GetPathRoot(dte.ActiveDocument.FullName));
+            r.AddEnv("TabSize", dte.ActiveDocument.TabSize.ToString());
+        }
+
         private void RunScript(DTE2 dte, Script script)
         {
             string stdin = GetStdin(dte, script.StdinMode);
 
             Runner r = new Runner("cmd", "/c " + script.Command);
 
-            r.AddEnv("FullPath", dte.ActiveDocument.FullName);
-            r.AddEnv("Filename", Misc.GetPathFileNameWithoutExtension(dte.ActiveDocument.FullName));
-            r.AddEnv("Extension", Misc.GetPathExtension(dte.ActiveDocument.FullName));
-            r.AddEnv("Directory", Misc.GetPathDirectoryName(dte.ActiveDocument.FullName));
-            r.AddEnv("RootDir", Misc.GetPathRoot(dte.ActiveDocument.FullName));
+            FillEnvironment(dte, r);
 
             r.Run(stdin);
 
@@ -391,8 +397,6 @@ namespace Company.VSScripts
             {
                 dte.UndoContext.Close();
             }
-
-            //             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
         }
 
         private void HandleScriptsCmd(object sender, EventArgs e)

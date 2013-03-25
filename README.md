@@ -158,6 +158,8 @@ variables:
 <dd>directory of file being edited, excluding drive letter.</dd>
 <dt>RootDir</dt>
 <dd>drive letter of file being edited, with trailing separator.</dd>
+<dt>TabSize</dt>
+<dd>width of a tab, in spaces.</dd>
 </dl>
 
 building it yourself
