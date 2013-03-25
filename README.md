@@ -18,12 +18,16 @@ installation
 
 You'll need Visual Studio 2012. Update 1 might be required.
 
-Double click the =vsix= file and follow the instructions.
+Look in `installers` folder for .vsix file with largest numbers
+attached.
+
+Double click that .vsix file, and follow the instructions.
 
 quick walkthrough
 =================
 
-Once you have the VSScripts extension installed, run Visual Studio.
+Once you have the VSScripts extension installed, run Visual
+Studio 2012.
 
 Note new SCRIPTS menu.
 
