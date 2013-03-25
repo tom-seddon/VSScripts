@@ -40,7 +40,12 @@ namespace Company.VSScripts
 
         public VSScriptsPackage()
         {
-            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+            //Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+#if DEBUG
+            Debug.WriteLine("VSScripts: DEBUG.");
+#else
+            Debug.WriteLine("VSScripts: Not DEBUG.");
+#endif
 
             _scripts = null;
 
