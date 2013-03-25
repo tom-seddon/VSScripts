@@ -49,16 +49,16 @@ You get to specify details straight away - let's use one of the
 examples supplied by setting things up as follows:
 
 <dl>
-<dt>`Command Line</dt>
-<dd>use the `...` button to find the `examples\InsertArrow.bat` file from the distribution.</dd>
-<dt>`Name</dt>
-<dd>`Insert ->`</dd>
-<dt>`stdout</dt>
-<dd>leave this at the default of `ReplaceSelection`</dd>
-<dt>`stderr</dt>
-<dd>leave this at the default of `LastLineToStatusBar`</dd>
-<dt>`stdin</dt>
-<dd>leave this at the default of `None`</dd>
+<dt><code>Command Line</code></dt>
+<dd>use the `...` button to find the <code>examples\InsertArrow.bat</code> file from the distribution.</dd>
+<dt><code>Name</code></dt>
+<dd><code>Insert -></code></dd>
+<dt><code>stdout</code></dt>
+<dd>leave this at the default of <code>ReplaceSelection</code>.</dd>
+<dt><code>stderr</code></dt>
+<dd>leave this at the default of <code>LastLineToStatusBar</code>.</dd>
+<dt><code>stdin</code></dt>
+<dd>leave this at the default of <code>None</code>.</dd>
 </dl>
 
 You're done! Click `OK`. Your script was added.
@@ -114,7 +114,8 @@ builtin commands (`SET`, `VER`, `ECHO`, etc.), or invoke batch files,
 or run scripts with file type assocations (e.g., python scripts), and
 so on.
 
-** `stdout` and `stderr` settings
+`stdout` and `stderr` settings
+------------------------------
 
 <dl>
 <dt>Discard</dt>
@@ -126,9 +127,9 @@ so on.
 <dt>LastLineToStatusBar</dt>
 <dd>the last non-empty line of the output is displayed on the status bar.</dd>
 <dt>ReplaceOutputWindow</dt>
-<dd>the output is sent to an output window pane called `VSScripts`, replacing the previous contents.</dd>
+<dd>the output is sent to an output window pane called <code>VSScripts</code>, replacing the previous contents.</dd>
 <dt>AppendToOutputWindow</dt>
-<dd>the output is appended to an output window pane called `VSScripts`.</dd>
+<dd>the output is appended to an output window pane called <code>VSScripts</code>.</dd>
 </dl>
 
 `stdin` settings
@@ -157,7 +158,7 @@ variables:
 <dt>Filename</dt>
 <dd>name of file being edited, no path or extension.</dd>
 <dt>Extension</dt>
-<dd>extension of name of file being edited, with a leading '.'.</dd>
+<dd>extension of name of file being edited, with a leading <code>.</code>.</dd>
 <dt>Directory</dt>
 <dd>directory of file being edited, excluding drive letter.</dd>
 <dt>RootDir</dt>
@@ -169,8 +170,7 @@ variables:
 building it yourself
 ====================
 
-You'll need the Visual Studio 2012 SDK, which you can get from here,
-until MS changes their web site around again:
+You'll need the Visual Studio 2012 SDK, which you can get from here:
 
 http://www.microsoft.com/en-gb/download/details.aspx?id=30668
 
