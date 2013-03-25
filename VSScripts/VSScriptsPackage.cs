@@ -264,7 +264,6 @@ namespace Company.VSScripts
 
             ITextEdit edit = wpfTextView.TextBuffer.CreateEdit();
 
-
             ITextSelection selection = wpfTextView.Selection;
 
             NormalizedSnapshotSpanCollection spans = selection.SelectedSpans;
@@ -361,7 +360,7 @@ namespace Company.VSScripts
                         TextSelection ts = dte.ActiveDocument.Selection as TextSelection;
 
                         if (ts.Mode == vsSelectionMode.vsSelectionModeStream)
-                            ts.DestructiveInsert(output);
+                            ts.Text = output;
                         else
                             ReplaceBoxSelection(dte, output);
                     }
