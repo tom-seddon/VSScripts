@@ -35,7 +35,21 @@ namespace Company.VSScripts
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]//UICONTEXT_NoSolution
     public sealed class VSScriptsPackage : Package
     {
+        private bool _enableDebugOutput;
         private List<Script> _scripts;
+
+        public VSScriptsPackage()
+        {
+            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+
+            _scripts = null;
+
+#if DEBUG
+            _enableDebugOutput = true;
+#else//DEBUG
+            _enableDebugOutput=false;
+#endif//DEBUG
+        }
 
         private void SaveScriptsList()
         {
@@ -56,76 +70,6 @@ namespace Company.VSScripts
         private string GetScriptsListFileName()
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VSScripts.xml");
-        }
-
-        //             _scripts = new List<Script>();
-        // 
-        //             {
-        //                 Script s = new Script();
-        // 
-        //                 s.Command = @"C:\bin\gnuwin32\bin\unixsort.exe";
-        //                 s.Name = "Sort Lines";
-        //                 s.StdinMode = Script.InputMode.Selection;
-        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
-        //                 s.StderrMode = Script.OutputMode.Discard;
-        // 
-        //                 _scripts.Add(s);
-        //             }
-        // 
-        //             {
-        //                 Script s = new Script();
-        // 
-        //                 s.Command = @"C:\bin\uuidgen.py";
-        //                 s.Name = "Generate GUID";
-        //                 s.StdinMode = Script.InputMode.None;
-        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
-        //                 s.StderrMode = Script.OutputMode.Discard;
-        // 
-        //                 _scripts.Add(s);
-        //             }
-        // 
-        //             {
-        //                 Script s = new Script();
-        // 
-        //                 s.Command = @"C:\tom\VSScripts\examples\InsertArrow.bat";
-        //                 s.Name = "Insert \"->\"";
-        //                 s.StdinMode = Script.InputMode.None;
-        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
-        //                 s.StderrMode = Script.OutputMode.Discard;
-        // 
-        //                 _scripts.Add(s);
-        //             }
-        // 
-        //             {
-        //                 Script s = new Script();
-        // 
-        //                 s.Command = @"C:\tom\VSScripts\examples\InsertThisArrow.bat";
-        //                 s.Name = "Insert \"this->\"";
-        //                 s.StdinMode = Script.InputMode.None;
-        //                 s.StdoutMode = Script.OutputMode.ReplaceSelection;
-        //                 s.StderrMode = Script.OutputMode.Discard;
-        // 
-        //                 _scripts.Add(s);
-        //             }
-        // 
-        //             {
-        //                 Script s = new Script();
-        // 
-        //                 s.Command = @"SET";
-        //                 s.Name = "Show environment";
-        //                 s.StdinMode = Script.InputMode.None;
-        //                 s.StdoutMode = Script.OutputMode.ReplaceOutputWindow;
-        //                 s.StderrMode = Script.OutputMode.Discard;
-        // 
-        //                 _scripts.Add(s);
-        //             }
-        //         }
-
-        public VSScriptsPackage()
-        {
-            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
-
-            _scripts = null;
         }
 
         protected override void Initialize()
@@ -243,17 +187,6 @@ namespace Company.VSScripts
             return null;
         }
 
-        private OutputWindowPane FindOrCreateOutputWindowPane(DTE2 dte, string name)
-        {
-            foreach (OutputWindowPane pane in dte.ToolWindows.OutputWindow.OutputWindowPanes)
-            {
-                if (pane.Name == name)
-                    return pane;
-            }
-
-            return dte.ToolWindows.OutputWindow.OutputWindowPanes.Add(name);
-        }
-
         private void SendToStatusBar(DTE2 dte, string output, bool first)
         {
             List<string> lines = new List<string>(from x in output.Split(new string[] { Environment.NewLine }, StringSplitOptions.None) where !string.IsNullOrWhiteSpace(x) select x.Trim());
@@ -282,6 +215,7 @@ namespace Company.VSScripts
                 e.AbsoluteCharOffset, e.AtEndOfDocument, e.AtEndOfLine, e.AtStartOfDocument, e.AtStartOfLine, e.DisplayColumn, e.Line, e.LineCharOffset, e.LineLength);
         }
 
+        // http://stackoverflow.com/questions/2413530/find-an-ivstextview-or-iwpftextview-for-a-given-projectitem-in-vs-2010-rc-exten
         private IWpfTextView GetWPFTextView(IVsTextView vsTextView)
         {
             var userData = vsTextView as IVsUserData;
@@ -302,19 +236,13 @@ namespace Company.VSScripts
             return host.TextView;
         }
 
-        private static void O(OutputWindowPane o, string fmt, params object[] args)
-        {
-            string str = string.Format(fmt, args);
-
-            o.OutputString(str);
-            Trace.Write(str);
-        }
-
         private void ReplaceBoxSelection(DTE2 dte, string text)
         {
+            StreamWriter debug = new StreamWriter(_enableDebugOutput ? new OutputWindowStream(dte, "VSScriptsDebug") : Stream.Null);
+
             int result;
 
-            IVsTextManager textManager = GetService(typeof(SVsTextManager)) as IVsTextManager;
+            var textManager = GetService(typeof(SVsTextManager)) as IVsTextManager;
             if (textManager == null)
                 return;
 
@@ -331,40 +259,32 @@ namespace Company.VSScripts
 
             ITextEdit edit = wpfTextView.TextBuffer.CreateEdit();
 
-            var owp = FindOrCreateOutputWindowPane(dte, "VSScriptsDebug");
-            owp.Clear();
 
             ITextSelection selection = wpfTextView.Selection;
 
             NormalizedSnapshotSpanCollection spans = selection.SelectedSpans;
             ReadOnlyCollection<VirtualSnapshotSpan> vspans = selection.VirtualSelectedSpans;
 
-            O(owp, "Spans:\n");
+            debug.Write("Spans:\n");
 
             for (int i = 0; i < spans.Count; ++i)
             {
                 SnapshotSpan span = spans[i];
 
-                O(owp, "    [{0}]: {1}\n", i, span);//Start={1} End={2} Length={3} IsEmpty={4}\n",i,span.Start,
+                debug.WriteLine("    [{0}]: {1}", i, span);//Start={1} End={2} Length={3} IsEmpty={4}\n",i,span.Start,
             }
 
-            O(owp, "Virtual Spans:\n");
+            debug.WriteLine("Virtual Spans:\n");
 
             for (int i = 0; i < vspans.Count; ++i)
             {
                 VirtualSnapshotSpan vspan = vspans[i];
                 SnapshotSpan span = vspan.SnapshotSpan;
 
-                O(owp, "    [{0}]: {1} (IsInVirtualSpace={2}) (Start VirtualSpaces={3} End VirtualSpaces={4})\n", i, vspan, vspan.IsInVirtualSpace, vspan.Start.VirtualSpaces, vspan.End.VirtualSpaces);
+                debug.WriteLine("    [{0}]: {1} (IsInVirtualSpace={2}) (Start VirtualSpaces={3} End VirtualSpaces={4})\n", i, vspan, vspan.IsInVirtualSpace, vspan.Start.VirtualSpaces, vspan.End.VirtualSpaces);
             }
 
             bool good = true;
-
-            //             foreach (SnapshotSpan span in spans)
-            //             {
-            //                 if (!edit.Replace(span, text))
-            //                     good = false;
-            //             }
 
             foreach (VirtualSnapshotSpan vspan in vspans)
             {
@@ -391,6 +311,21 @@ namespace Company.VSScripts
                 edit.Apply();
             else
                 edit.Cancel();
+
+            debug.Flush();
+        }
+
+        private void SendToOutputWindow(DTE2 dte, string output, bool clearFirst)
+        {
+            var stream = new OutputWindowStream(dte, "VSScripts");
+
+            if (clearFirst)
+                stream.ClearPane();
+
+            var writer = new StreamWriter(stream);
+
+            writer.Write(output);
+            writer.Flush();
         }
 
         private void DoOutput(DTE2 dte, Script.OutputMode mode, string output)
@@ -401,20 +336,11 @@ namespace Company.VSScripts
                     break;
 
                 case Script.OutputMode.ReplaceOutputWindow:
-                    {
-                        OutputWindowPane pane = FindOrCreateOutputWindowPane(dte, "VSScripts");
-
-                        pane.Clear();
-
-                        goto case Script.OutputMode.AppendToOutputWindow;
-                    }
+                    SendToOutputWindow(dte, output, true);
+                    break;
 
                 case Script.OutputMode.AppendToOutputWindow:
-                    {
-                        OutputWindowPane pane = FindOrCreateOutputWindowPane(dte, "VSScripts");
-
-                        pane.OutputString(output);
-                    }
+                    SendToOutputWindow(dte, output, false);
                     break;
 
                 case Script.OutputMode.FirstLineToStatusBar:
@@ -430,13 +356,9 @@ namespace Company.VSScripts
                         TextSelection ts = dte.ActiveDocument.Selection as TextSelection;
 
                         if (ts.Mode == vsSelectionMode.vsSelectionModeStream)
-                        {
                             ts.DestructiveInsert(output);
-                        }
                         else
-                        {
                             ReplaceBoxSelection(dte, output);
-                        }
                     }
                     break;
             }
