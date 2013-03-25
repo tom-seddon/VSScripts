@@ -1,4 +1,4 @@
-VSIXNAME:=VSScripts/bin/debug/VSScripts.vsix
+VSIXNAME:=VSScripts/bin/release/VSScripts.vsix
 
 .PHONY:default
 default:
