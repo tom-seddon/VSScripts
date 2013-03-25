@@ -45,15 +45,15 @@ You get to specify details straight away - let's use one of the
 examples supplied by setting things up as follows:
 
 <dl>
-<dt>`Command Line`</dt>
+<dt>`Command Line</dt>
 <dd>use the `...` button to find the `examples\InsertArrow.bat` file from the distribution.</dd>
-<dt>`Name`</dt>
+<dt>`Name</dt>
 <dd>`Insert ->`</dd>
-<dt>`stdout`</dt>
+<dt>`stdout</dt>
 <dd>leave this at the default of `ReplaceSelection`</dd>
-<dt>`stderr`</dt>
+<dt>`stderr</dt>
 <dd>leave this at the default of `LastLineToStatusBar`</dd>
-<dt>`stdin`</dt>
+<dt>`stdin</dt>
 <dd>leave this at the default of `None`</dd>
 </dl>
 
@@ -113,17 +113,17 @@ so on.
 ** `stdout` and `stderr` settings
 
 <dl>
-<dt>`Discard`</dt>
+<dt>Discard</dt>
 <dd>the output is discarded.</dd>
-<dt>`ReplaceSelection`</dt>
+<dt>ReplaceSelection</dt>
 <dd>the output replaces the current selection. (The last newline is discarded, if there is one, so if you really want the result to end with a newline then you must print an extra one. This is a .NET limitation.)</dd>
-<dt>`FirstLineToStatusBar`</dt>
+<dt>FirstLineToStatusBar</dt>
 <dd>the first non-empty line of the output is displayed on the status bar.</dd>
-<dt>`LastLineToStatusBar`</dt>
+<dt>LastLineToStatusBar</dt>
 <dd>the last non-empty line of the output is displayed on the status bar.</dd>
-<dt>`ReplaceOutputWindow`</dt>
+<dt>ReplaceOutputWindow</dt>
 <dd>the output is sent to an output window pane called `VSScripts`, replacing the previous contents.</dd>
-<dt>`AppendToOutputWindow`</dt>
+<dt>AppendToOutputWindow</dt>
 <dd>the output is appended to an output window pane called `VSScripts`.</dd>
 </dl>
 
@@ -131,11 +131,11 @@ so on.
 ----------------
 
 <dl>
-<dt>`None`</dt>
+<dt>None</dt>
 <dd>no input is supplied.</dd>
-<dt>`CurrentLine`</dt>
+<dt>CurrentLine</dt>
 <dd>the contents of the current line, excluding line ending, is sent.</dd>
-<dt>`Selection`</dt>
+<dt>Selection</dt>
 <dd>the contents of the selection is sent.</dd>
 </dl>
 
@@ -148,17 +148,31 @@ There are a few pieces of information supplied via environment
 variables:
 
 <dl>
-<dt>`FullPath`</dt>
+<dt>FullPath</dt>
 <dd>full path of file being edited.</dd>
-<dt>`Filename`</dt>
+<dt>Filename</dt>
 <dd>name of file being edited, no path or extension.</dd>
-<dt>`Extension`</dt>
-<dd>extension of name of file being edited, with a leading `.`.</dd>
-<dt>`Directory`</dt>
+<dt>Extension</dt>
+<dd>extension of name of file being edited, with a leading '.'.</dd>
+<dt>Directory</dt>
 <dd>directory of file being edited, excluding drive letter.</dd>
-<dt>`RootDir`</dt>
+<dt>RootDir</dt>
 <dd>drive letter of file being edited, with trailing separator.</dd>
 </dl>
+
+building it yourself
+====================
+
+You'll need the Visual Studio 2012 SDK, which you can get from here,
+until MS changes their web site around again:
+
+http://www.microsoft.com/en-gb/download/details.aspx?id=30668
+
+Once you have that installed, load SLN into Visual Studio 2012, build,
+and run - it will run the experimental version of Visual Studio.
+
+Once you're happy, find the VSIX file in the `bin\Debug` or
+`bin\Release` folder and double-click to install.
 
 bugs/problems
 =============
