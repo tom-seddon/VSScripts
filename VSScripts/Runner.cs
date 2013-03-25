@@ -9,7 +9,7 @@ namespace Company.VSScripts
 {
     class Runner
     {
-        private Process _process;
+        private ProcessStartInfo _startInfo;
         private StringBuilder _stdoutBuilder, _stderrBuilder;
         private string _stdout, _stderr;
         private int _exitCode;
@@ -20,71 +20,77 @@ namespace Company.VSScripts
 
         public Runner(string cmd, string args)
         {
-            _process = new Process();
             _stdoutBuilder = new StringBuilder();
             _stderrBuilder = new StringBuilder();
 
             _exitCode = -1;
 
-            _process.StartInfo.FileName = cmd;
+            _startInfo = new ProcessStartInfo();
+            
+            _startInfo.FileName = cmd;
 
             if (args != null)
-                _process.StartInfo.Arguments = args;
+                _startInfo.Arguments = args;
 
-            _process.StartInfo.UseShellExecute = false;
-            _process.StartInfo.CreateNoWindow = true;
-            _process.EnableRaisingEvents = true;
+            _startInfo.UseShellExecute = false;
+            _startInfo.CreateNoWindow = true;
 
-            _process.StartInfo.RedirectStandardInput = true;
+            _startInfo.RedirectStandardInput = true;
 
-            _process.StartInfo.RedirectStandardError = true;
-            _process.ErrorDataReceived += this.OnErrorDataReceived;
+            _startInfo.RedirectStandardError = true;
 
-            _process.StartInfo.RedirectStandardOutput = true;
-            _process.OutputDataReceived += this.OnOutputDataReceived;
+            _startInfo.RedirectStandardOutput = true;
         }
 
         public void AddEnv(string key, string value)
         {
             if (key != null && value != null)
-                _process.StartInfo.EnvironmentVariables.Add(key, value);
+                _startInfo.EnvironmentVariables.Add(key, value);
         }
 
         public bool Run(string stdin)
         {
             bool good = false;
 
-            try
+            using (var process = new Process())
             {
-                _process.Start();
+                process.StartInfo = _startInfo;
 
-                _process.BeginOutputReadLine();
-                _process.BeginErrorReadLine();
+                process.EnableRaisingEvents = true;
+                process.ErrorDataReceived += this.OnErrorDataReceived;
+                process.OutputDataReceived += this.OnOutputDataReceived;
 
-                if (stdin != null)
-                    _process.StandardInput.Write(stdin);
+                try
+                {
+                    process.Start();
 
-                _process.StandardInput.Close();//^Z
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
 
-                if (_process.WaitForExit(2500))
-                    good = true;
-                else
-                    _process.Kill();
+                    if (stdin != null)
+                        process.StandardInput.Write(stdin);
 
-                _process.WaitForExit();
+                    process.StandardInput.Close();//^Z
+
+                    if (process.WaitForExit(2500))
+                        good = true;
+                    else
+                        process.Kill();
+
+                    process.WaitForExit();
+                }
+                catch (System.Exception ex)
+                {
+                    _stderrBuilder.Clear();
+                    _stderrBuilder.Append(ex.ToString());
+                }
+
+                _stdout = _stdoutBuilder.ToString();
+                _stderr = _stderrBuilder.ToString();
+
+                _exitCode = process.ExitCode;
+                process.Close();
             }
-            catch (System.Exception ex)
-            {
-                _stderrBuilder.Clear();
-                _stderrBuilder.Append(ex.ToString());
-            }
-
-            _stdout = _stdoutBuilder.ToString();
-            _stderr = _stderrBuilder.ToString();
-
-            _exitCode = _process.ExitCode;
-            _process.Close();
-            _process = null;
 
             return good;
         }
