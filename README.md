@@ -16,7 +16,7 @@ much. Often, you won't need anything fancier than a simple batch file.
 installation
 ============
 
-You'll need VS2012. Update 1 might be required.
+You'll need Visual Studio 2012. Update 1 might be required.
 
 Double click the =vsix= file and follow the instructions.
 
