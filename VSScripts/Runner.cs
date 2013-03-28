@@ -89,7 +89,6 @@ namespace Company.VSScripts
                 _stderr = _stderrBuilder.ToString();
 
                 _exitCode = process.ExitCode;
-                process.Close();
             }
 
             return good;
