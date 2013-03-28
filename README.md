@@ -16,12 +16,28 @@ much. Often, you won't need anything fancier than a simple batch file.
 installation
 ============
 
+installing pre-built version
+----------------------------
+
 You'll need Visual Studio 2012. Update 1 might be required.
 
 Look in `installers` folder for .vsix file with largest numbers
 attached.
 
 Double click that .vsix file, and follow the instructions.
+
+building it yourself
+--------------------
+
+You'll need the Visual Studio 2012 SDK, which you can get from here:
+
+http://www.microsoft.com/en-gb/download/details.aspx?id=30668
+
+Once you have that installed, load SLN into Visual Studio 2012, build,
+and run - it will run the experimental version of Visual Studio.
+
+Once you're happy, find the VSIX file in the `bin\Debug` or
+`bin\Release` folder and double-click to install.
 
 quick walkthrough
 =================
@@ -166,19 +182,6 @@ variables:
 <dt>TabSize</dt>
 <dd>width of a tab, in spaces.</dd>
 </dl>
-
-building it yourself
-====================
-
-You'll need the Visual Studio 2012 SDK, which you can get from here:
-
-http://www.microsoft.com/en-gb/download/details.aspx?id=30668
-
-Once you have that installed, load SLN into Visual Studio 2012, build,
-and run - it will run the experimental version of Visual Studio.
-
-Once you're happy, find the VSIX file in the `bin\Debug` or
-`bin\Release` folder and double-click to install.
 
 bugs/problems
 =============
