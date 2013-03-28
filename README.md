@@ -189,15 +189,24 @@ bugs/problems
 - Box selection behaviour is far from perfect. It works well enough
   for my purposes though and I'm sick of poking at it for now.
 
+- Should be cleverer about box selections. With box selection active,
+  if output includes a newline, should replace box with new output. If
+  output doesn't include a newline, and box selection is 0 chars wide,
+  should treat box selection as multiple cursors. That should probably
+  cater for most cases. At the moment it's easy to end up with a big
+  mess.
+
 - Needs more stdin/stdout/stderr options.
 
 - Would be nice to be able to rearrange the scripts order.
 
 - Would be nice to be able to name the commands dynamically rather
-  than have the stupid numbers.
+  than have the stupid numbers - not sure Visual Studio will do this.
 
-- Should be able to supply dynamic information via command line.
+- Should be able to supply dynamic information to scripts via command
+  line.
 
-- Should be able to handle I/O from temp files.
+- Should be able to handle I/O via temp files, if the script would
+  need that.
 
 (etc., etc.)
