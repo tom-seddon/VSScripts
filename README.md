@@ -66,7 +66,7 @@ examples supplied by setting things up as follows:
 
 <dl>
 <dt><code>Command Line</code></dt>
-<dd>use the `...` button to find the <code>examples\InsertArrow.bat</code> file from the distribution.</dd>
+<dd>use the <code>...</code> button to find the <code>examples\InsertArrow.bat</code> file from the distribution.</dd>
 <dt><code>Name</code></dt>
 <dd><code>Insert -></code></dd>
 <dt><code>stdout</code></dt>
@@ -160,7 +160,8 @@ so on.
 <dd>the contents of the selection is sent.</dd>
 </dl>
 
-* making your own scripts
+making your own scripts
+-----------------------
 
 You can write scripts in any language. Just set up the stdin, stdout
 and stderr options as appropriate for its behaviour.
