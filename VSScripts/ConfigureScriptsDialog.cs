@@ -27,7 +27,7 @@ namespace Company.VSScripts
             {
                 if (_scripts[i] != null)
                 {
-                    ListViewItem lvi = _scriptsList.Items.Add(string.Format("{0} - {1}", i, _scripts[i].Caption));
+                    ListViewItem lvi = _scriptsList.Items.Add(string.Format("{0:D2} - {1}", i, _scripts[i].Caption));
 
                     lvi.Tag = i;
                 }
