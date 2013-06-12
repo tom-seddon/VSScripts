@@ -76,8 +76,6 @@ namespace Company.VSScripts
                         good = true;
                     else
                         process.Kill();
-
-                    process.WaitForExit();
                 }
                 catch (System.Exception ex)
                 {
