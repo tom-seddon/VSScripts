@@ -33,8 +33,19 @@ You'll need the Visual Studio 2012 SDK, which you can get from here:
 
 http://www.microsoft.com/en-gb/download/details.aspx?id=30668
 
-Once you have that installed, load SLN into Visual Studio 2012, build,
-and run - it will run the experimental version of Visual Studio.
+Once you have that installed, load SLN into Visual Studio 2012. Set up
+debugging options as follows, adjusting the path to `devenv.exe` as
+appropriate:
+
+<dl>
+<dt><code>Start external program</code></dt>
+<dd><code>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe</code></dd>
+<dt><code>Command line arguments</code></dt>
+<dd><code>/rootsuffix Exp</code></dd>
+</dl>
+
+Then build, and run - it will run the experimental version of Visual
+Studio.
 
 Once you're happy, find the VSIX file in the `bin\Debug` or
 `bin\Release` folder and double-click to install.
