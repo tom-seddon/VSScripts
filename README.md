@@ -2,10 +2,9 @@ VSScripts
 =========
 
 The VSScripts extension package adds a simple macro facility to Visual
-Studio 2012 for inserting and transforming text. It runs a command
-line program from within the IDE, feeding it the selection via stdin,
-and captures the output. Then it replaces the selection with the
-output.
+Studio for inserting and transforming text. It runs a command line
+program from within the IDE, feeding it the selection via stdin, and
+captures the output. Then it replaces the selection with the output.
 
 You can write your macros in any language you like, pretty
 much. Often, you won't need anything fancier than a simple batch file.
@@ -16,30 +15,34 @@ much. Often, you won't need anything fancier than a simple batch file.
 installation
 ============
 
-installing pre-built version
-----------------------------
+installing pre-built version (Visual Studio 2012)
+-------------------------------------------------
 
-You'll need Visual Studio 2012. Update 1 might be required.
+Run =installers\VSScripts-0.2.4911.2480.vsix=.
+
+(This edition is provided as-is - sorry! I don't use Visual Studio
+2012 any more. The Visual Studio 2013 version may work too.)
+
+installing pre-build version (Visual Studio 2013)
+-------------------------------------------------
 
 Look in `installers` folder for .vsix file with largest numbers
-attached.
-
-Double click that .vsix file, and follow the instructions.
+attached. Run that file.
 
 building it yourself
 --------------------
 
-You'll need the Visual Studio 2012 SDK, which you can get from here:
+You'll need the Visual Studio 2013 SDK, which you can get from here:
 
-http://www.microsoft.com/en-gb/download/details.aspx?id=30668
+https://www.microsoft.com/en-us/download/confirmation.aspx?id=40758
 
-Once you have that installed, load SLN into Visual Studio 2012. Set up
+Once you have that installed, load SLN into Visual Studio 2013. Set up
 debugging options as follows, adjusting the path to `devenv.exe` as
 appropriate:
 
 <dl>
 <dt><code>Start external program</code></dt>
-<dd><code>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe</code></dd>
+<dd><code>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</code></dd>
 <dt><code>Command line arguments</code></dt>
 <dd><code>/rootsuffix Exp</code></dd>
 </dl>
@@ -54,7 +57,7 @@ quick walkthrough
 =================
 
 Once you have the VSScripts extension installed, run Visual
-Studio 2012.
+Studio 2013.
 
 Note new SCRIPTS menu.
 

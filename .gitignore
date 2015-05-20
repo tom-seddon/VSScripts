@@ -9,3 +9,5 @@
 *.pyc
 \#*\#
 /README.html
+/Backup/
+UpgradeLog.htm
