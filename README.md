@@ -25,7 +25,7 @@ Run `installers\VSScripts-0.2.4911.2480.vsix`.
 version may work too.)
 
 installing pre-built version (Visual Studio 2013+)
-==================================================
+--------------------------------------------------
 
 Look in `installers` folder for .vsix file with largest numbers
 attached. Run that file.
@@ -62,9 +62,10 @@ Once you're happy, find the VSIX file in the `bin\Debug` or
 quick walkthrough
 =================
 
+(The screen grabs for this walkthrough were taken in VS2013, but it's
+very similar for VS2015.)
+
 Once you have the VSScripts extension installed, run Visual Studio.
-(The screen grabs for this walkthrough were taken in VS2013; it's very
-similar for VS2015.)
 
 Note new SCRIPTS menu.
 
@@ -186,6 +187,13 @@ making your own scripts
 
 You can write scripts in any language. Just set up the stdin, stdout
 and stderr options as appropriate for its behaviour.
+
+(If you're running a file that relies on a custom file type to do its
+thing, you may get the Windows "Choose which program you want to run
+this file" dialog - which you should deal with as you see fit. I don't
+know what rules govern this dialog's appearance, but I've had it when
+trying to run Python files. And I clicked the "Always use this
+program" box so I'd never have to see it again.)
 
 There are a few pieces of information supplied via environment
 variables:
