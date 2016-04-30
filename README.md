@@ -18,19 +18,25 @@ installation
 installing pre-built version (Visual Studio 2012)
 -------------------------------------------------
 
-Run =installers\VSScripts-0.2.4911.2480.vsix=.
+Run `installers\VSScripts-0.2.4911.2480.vsix`.
 
 (This edition is provided as-is - sorry! I don't use Visual Studio
-2012 any more. The Visual Studio 2013 version may work too.)
+2012 any more but this was the version I used. The Visual Studio 2013+
+version may work too.)
 
-installing pre-build version (Visual Studio 2013)
--------------------------------------------------
+installing pre-built version (Visual Studio 2013+)
+==================================================
 
 Look in `installers` folder for .vsix file with largest numbers
 attached. Run that file.
 
+This version advertises compatibility with VS2012 and later. I've
+tested it with VS2013 and VS2015.
+
 building it yourself
 --------------------
+
+Build with Visual Studio 2013.
 
 You'll need the Visual Studio 2013 SDK, which you can get from here:
 
@@ -56,8 +62,9 @@ Once you're happy, find the VSIX file in the `bin\Debug` or
 quick walkthrough
 =================
 
-Once you have the VSScripts extension installed, run Visual
-Studio 2013.
+Once you have the VSScripts extension installed, run Visual Studio.
+(The screen grabs for this walkthrough were taken in VS2013; it's very
+similar for VS2015.)
 
 Note new SCRIPTS menu.
 
